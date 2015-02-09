@@ -1,11 +1,11 @@
-=========================================
-National Rail Enquiries Darwin Webservice
-=========================================
+=============
+nre-darwin-py
+=============
 
 Introduction
 ------------
 
-`nre-darwin-py` provides an abstraction layer for accessing National Rail Enquiries Darwin service via their LDB SOAP web service.
+`nre-darwin-py` provides an abstraction layer for accessing National Rail Enquiries Darwin service via their LDB SOAP web service. This service provides live departure board information for all United Kingdom train stations.
 
 This module has the following goals:
 
@@ -62,3 +62,4 @@ TODO
 
 * Make departure and arrival times available as timezone-aware datetime objects
 * More detailed exception handling
+* More examples
