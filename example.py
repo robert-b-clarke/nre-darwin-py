@@ -1,9 +1,10 @@
-import nredarwin.webservice
+
+from nredarwin.webservice import DarwinLdbSession
 
 # initiate a session
 # this depends on the DARWIN_WEBSERVICE_API_KEY environment variable
 # The WSDL environment variable also allows for
-darwin_session = nredarwin.webservice.Session(wsdl='https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx')
+darwin_session = DarwinLdbSession(wsdl='https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx')
 print("Enter 3 digit CRS code:")
 try:
     input = raw_input #python2 has raw_input, python3 has input

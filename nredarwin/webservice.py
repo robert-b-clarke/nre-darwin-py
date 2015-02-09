@@ -9,9 +9,9 @@ log = logging.getLogger(__name__)
 #TODO - timeouts and error handling
 DARWIN_WEBSERVICE_NAMESPACE = ('com','http://thalesgroup.com/RTTI/2010-11-01/ldb/commontypes')
 
-class Session(object):
+class DarwinLdbSession(object):
     """
-    A connection to the Darwin web service
+    A connection to the Darwin LDB web service
     """
 
     def __init__(self, wsdl=None, api_key=None, timeout=5):
