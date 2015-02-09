@@ -2,6 +2,14 @@
 nre-darwin-py
 =============
 
+.. image:: https://travis-ci.org/robert-b-clarke/nre-darwin-py.svg?branch=master
+    :target: https://travis-ci.org/robert-b-clarke/nre-darwin-py
+
+.. image:: https://pypip.in/v/nre-darwin-py/badge.png
+    :target: https://pypi.python.org/pypi//nre-darwin-py/
+    :alt: Downloads
+
+
 Introduction
 ------------
 
@@ -53,7 +61,7 @@ Practicalities
 --------------
 
 * The environment variables `DARWIN_WEBSERVICE_WSDL` and `DARWIN_WEBSERVICE_API_KEY` can be used to set the WSDL url and api key, so you don't have to specify them when initiating a `DarwinLdbSession`.
-* The WSDL url for the LDB Webservice may change from time to time, and has one in the past. Your application should take this into account.
+* The WSDL url for the LDB Webservice may change from time to time, and has in the past. Your application should take this into account.
 * Any call to get_station_board or get_service_details will result in a query to the LDB Webservice, and therefore an HTTP request to an external service. Your application will need to handle caching and failure modes itself.
 * There is an overhead involved when creating a `DarwinLdbSession`, as the WSDL must be retrieved and parsed.
 
