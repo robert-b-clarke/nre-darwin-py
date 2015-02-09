@@ -38,8 +38,8 @@ class StationBoardTest(unittest.TestCase):
         self.assertEqual(row.platform, "1")
         self.assertEqual(row.operator_name, "First TransPennine Express")
         self.assertEqual(row.operator_code, "TP")
-        self.assertIsNone(row.sta)
-        self.assertIsNone(row.eta)
+        self.assertEqual(row.sta, None)
+        self.assertEqual(row.eta, None)
         self.assertEqual(row.std, "11:57")
         self.assertEqual(row.etd, "On time")
         self.assertEqual(row.destination_text, "Middlesbrough")
@@ -60,7 +60,7 @@ class StationBoardTest(unittest.TestCase):
         destination = self.board.train_services[0].destinations[0]
         self.assertEqual(destination.location_name, 'Middlesbrough')
         self.assertEqual(destination.crs, 'MBR')
-        self.assertIsNone(destination.via)
+        self.assertEqual(destination.via, None)
 
     def test_nrcc_messages(self):
         self.assertEqual(self.board.nrcc_messages[0], 'Trains through Wembley Central&nbsp;are being delayed by up to&nbsp;40 minutes. More details can be found in <A href="    http://nationalrail.co.uk/service_disruptions/88961.aspx">Latest Travel News.</A>')
@@ -79,13 +79,13 @@ class ServiceDetailsTest(unittest.TestCase):
         self.assertEqual(self.service_details.platform, '13')
         self.assertEqual(self.service_details.operator_name, 'East Midlands Trains')
         self.assertEqual(self.service_details.operator_code, 'EM')
-        self.assertIsNone(self.service_details.ata)
-        self.assertIsNone(self.service_details.atd)
+        self.assertEqual(self.service_details.ata, None)
+        self.assertEqual(self.service_details.atd, None)
 
     def test_messages(self):
         self.assertFalse(self.service_details.is_cancelled)
-        self.assertIsNone(self.service_details.disruption_reason)
-        self.assertIsNone(self.service_details.overdue_message)
+        self.assertEqual(self.service_details.disruption_reason, None)
+        self.assertEqual(self.service_details.overdue_message, None)
 
     def test_calling_points(self):
         self.assertEqual(len(self.service_details.previous_calling_points), 5)
