@@ -15,6 +15,14 @@ class DarwinLdbSession(object):
     """
 
     def __init__(self, wsdl=None, api_key=None, timeout=5):
+        """
+        Constructor
+
+        Keyword arguments:
+        wsdl -- the URL of the Darwin LDB WSDL document. Will fall back to using the DARWIN_WEBSERVICE_WSDL environment variable if not supplied
+        api_key -- a valid API key for the Darwin LDB webservice. Will fall back to the DARWIN_WEBSERVICE_API_KEY if not supplied
+        timeout -- a timeout in seconds for calls to the LDB Webservice (default 5)
+        """
         if not wsdl:
             wsdl = os.environ['DARWIN_WEBSERVICE_WSDL']
         if not api_key:
@@ -33,9 +41,17 @@ class DarwinLdbSession(object):
 
     def get_station_board(self, crs, rows=10, include_departures=True, include_arrivals=False, destination_crs=None, origin_crs=None):
         """
-        Query the darwin webservice to obtain a board for a particular station. Three letter CRS code is an expected parameter. By default only departures are included
+        Query the darwin webservice to obtain a board for a particular station and return a StationBoard instance
 
-        returns a StationBoard object
+        Positional arguments:
+        crs -- the three letter CRS code of a UK station
+
+        Keyword arguments:
+        rows -- the number of rows to retrieve (default 10)
+        include_departures -- include departing services in the departure board (default True)
+        include_arrivals -- include arriving services in the departure board (default False)
+        destination_crs -- filter results so they only include services calling at a particular destination (default None)
+        origin_crs -- filter results so they only include services originating from a particular station (default None)
         """
         #Determine the darwn query we want to make
         if include_departures and include_arrivals:
@@ -63,7 +79,10 @@ class DarwinLdbSession(object):
     
     def get_service_details(self, service_id):
         """
-        Get the details of an individual service using a serviceId
+        Get the details of an individual service and return a ServiceDetails instance.
+
+        Positional arguments:
+        service_id: A Darwin LDB service id
         """
         try:
             soap_response = self._soap_client.service['LDBServiceSoap']['GetServiceDetails'](serviceID=service_id)
