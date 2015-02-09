@@ -19,6 +19,11 @@ Getting started
 
 You will need to register for Darwin access, you can do this via National Rail Enquiries `developer site <http://www.nationalrail.co.uk/46391.aspx>`_.
 
+Then install nre-darwin-py::
+
+    pip install nre-darwin-py
+
+
 Basic usage
 -----------
 
