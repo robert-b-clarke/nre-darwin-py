@@ -147,14 +147,14 @@ class StationBoard(SoapResponseBase):
     @property
     def crs(self):
         """
-        The CRS code of the location that the station board is for. 
+        The CRS code for the station. 
         """
         return self._crs
 
     @property
     def location_name(self):
         """
-        The name of the location that the station board is for.
+        The name of the station.
         """
         return self._location_name
 
@@ -182,8 +182,7 @@ class StationBoard(SoapResponseBase):
     @property
     def nrcc_messages(self):
         """
-        An optional list of textual messages that should be displayed with the station board. The message may include embedded and xml encoded HTML-like hyperlinks and paragraphs. The messages are typically used to display important disruption information that applies to the location that the station board was for.
-        """
+        An optional list of important messages that should be displayed with the station board. Messages may include HTML hyperlinks and paragraphs.        """
         return self._nrcc_messages
 
     def __str__(self):
@@ -221,7 +220,7 @@ class ServiceDetailsBase(SoapResponseBase):
     @property
     def sta(self):
         """
-        An optional Scheduled Time of Arrival of the service at the station board location. Arrival times will only be available for Arrival and Arrival & Departure station boards but may also not be present at locations that are not scheduled to arrive at the location (e.g. the origin)
+        Scheduled Time of Arrival. This is optional and may be present for station boards which include arrivals.
 
         This is a human readable string rather than a proper datetime object and may not be a time at all
         """
@@ -230,7 +229,7 @@ class ServiceDetailsBase(SoapResponseBase):
     @property
     def eta(self):
         """
-        An optional Estimated Time of Arrival of the service at the station board location. Arrival times will only be available for Arrival and Arrival & Departure station boards and only where an sta time is present.
+        Estimated Time of Arrival. This is optional and may be present when an sta (Scheduled Time of Arrival) is available.
 
         This is a human readable string rather than a proper datetime object and may not be a time at all
         """
@@ -239,7 +238,7 @@ class ServiceDetailsBase(SoapResponseBase):
     @property
     def std(self):
         """
-        An optional Scheduled Time of Departure of the service at the station board location. Departure times will only be available for Departure and Arrival & Departure station boards but may also not be present at locations that are not scheduled to depart at the location
+        Scheduled Time of Departure. This is optional and may be present for station boards which include departures
 
         This is a human readable string rather than a proper datetime object and may not be a time at all
         """
@@ -248,7 +247,7 @@ class ServiceDetailsBase(SoapResponseBase):
     @property
     def etd(self):
         """
-        An optional Estimated Time of Departure of the service at the station board location. Departure times will only be available for Departure and Arrival & Departure station boards and only where an std time is present. 
+        Estimated Time of Departure. This is optional and may be present for results which contain an std (Scheduled Time of Departure)
 
         This is a human readable string rather than a proper datetime object and may not be a time at all
         """
@@ -257,21 +256,21 @@ class ServiceDetailsBase(SoapResponseBase):
     @property
     def platform(self):
         """
-        An optional platform number for the service at this location
+        The platform number for the service at this station. Optional.
         """
         return self._platform
 
     @property
     def operator_name(self):
         """
-        The name of the Train Operating Company that operates the service
+        The name of the train operator
         """
         return self._operator_name
 
     @property
     def operator_code(self):
         """
-        The code of the Train Operating Company that operates the service
+        The National Rail abbreviation for the train operator
         """
         return self._operator_code
 
@@ -297,28 +296,28 @@ class ServiceItem(ServiceDetailsBase):
     @property
     def is_circular_route(self):
         """
-        If this value is present and true then the service is operating on a circular route through the network and will call again at this location later on its journey
+        If True this service is following a circular route and will call again at this station.
         """
         return self._is_circular_route
 
     @property
     def service_id(self):
         """
-        The unique service identifier of this service relative to the station board on which it is displayed
+        The unique ID of this service. This ID is specific to the Darwin LDB Service
         """
         return self._service_id
 
     @property
     def origins(self):
         """
-        A list of ServiceLocation objects giving origins of this service. Note that a service may have more than one origin, if the service comprises of multiple trains that join at a previous location in the schedule.
+        A list of ServiceLocation objects describing the origins of this service. A service may have more than multiple origins.
         """
         return self._origins
 
     @property
     def destinations(self):
         """
-        A list of ServiceLocation objects giving destinations of this service. Note that a service may have more than one destination, if the service comprises of multiple trains that divide at a subsequent location in the schedule
+        A list of ServiceLocation objects describing the destinations of this service. A service may have more than multiple destinations.
         """
         return self._destinations
 
@@ -357,28 +356,28 @@ class ServiceLocation(SoapResponseBase):
     @property
     def location_name(self):
         """
-        The name of the location.
+        Location name
         """
         return self._location_name
 
     @property
     def crs(self):
         """
-        The CRS code of this location. A CRS code of ??? indicates an error situation where no crs code is known for this location.
+        The CRS code of the location
         """
         return self._crs
 
     @property
     def via(self):
         """
-        An optional via text that should be displayed after the location, to indicate further information about an ambiguous route. Note that vias are only present for ServiceLocation objects that appear in destination lists
+        An optional string that should be displayed alongside the location_name. This provides additional context regarding an ambiguous route.
         """
         return self._via
 
     @property
     def future_change_to(self):
         """
-        A text string contianing service type (Bus/Ferry/Train) to which will be changed in the future.
+        An optional string that indicates a service type (Bus/Ferry/Train) which will replace the current service type in the future.
         """
         return self._future_change_to
     
@@ -422,49 +421,53 @@ class ServiceDetails(ServiceDetailsBase):
     @property
     def is_cancelled(self):
         """
-        Indicates that the service is cancelled at this location.
+        True if this service is cancelled at this location.
         """
         return self._is_cancelled
 
     @property
     def disruption_reason(self):
         """
-        A disruption reason for this service. If the service is cancelled, this will be a cancellation reason. If the service is running late at this location, this will be a late-running reason.
+        A string containing a disruption reason for this service, if it is delayed or cancelled.
         """
         return self._disruption_reason
 
     @property
     def overdue_message(self):
         """
-        If an expected movement report has been missed, this will contain a message describing the missed movement.
+        A string that describes an overdue event
         """
         return self._overdue_message
 
     @property
     def ata(self):
         """
-        The actual time of arrival. Will only be present if sta is also present and eta is not present.
+        Actual Time of Arrival.
+
+        A human readable string, not guaranteed to be a machine-parsable time
         """
         return self._ata
 
     @property
     def atd(self):
         """
-        The actual time of departure. Will only be present if std is also present and etd is not present.
+        Actual Time of Departure.
+
+        A human readable string, not guaranteed to be a machine-parsable time
         """
         return self._atd
 
     @property
     def previous_calling_points(self):
         """
-        A list of CallingPoint objects representing the previous calling points in the journey. A separate calling point list will be present for each origin of the service, relative to the current location
+        A list of CallingPoint objects 
         """
         return self._previous_calling_points
 
     @property
     def subsequent_calling_points(self):
         """
-        A list of CallingPoint objects representing the subsequent calling points in the journey. A separate calling point list will be present for each destination of the service, relative to the current location. 
+        A list of CallingPoint objects 
         """
         return self._subsequent_calling_points
 
@@ -480,21 +483,21 @@ class CallingPoint(SoapResponseBase):
     @property
     def location_name(self):
         """
-        The name of the location.
+        Location name
         """
         return self._location_name
 
     @property
     def crs(self):
         """
-        The CRS code of this location. A CRS code of ??? indicates an error situation where no crs code is known for this location.
+        The CRS code for this location 
         """
         return self._crs
 
     @property
     def at(self):
         """
-        The actual time of the service at this location. The time will be either an arrival or departure time, depending on whether it is in the subsequent or previous calling point list. Will only be present if an estimated time (et) is not present.
+        Actual time
 
         Human readable string, no guaranteed format
         """
@@ -503,7 +506,7 @@ class CallingPoint(SoapResponseBase):
     @property
     def et(self):
         """
-The estimated time of the service at this location. The time will be either an arrival or departure time, depending on whether it is in the subsequent or previous calling point list. Will only be present if an actual time (at) is not present. 
+        Estimated time
 
         Human readable string, no guaranteed format
         """
