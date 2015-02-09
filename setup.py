@@ -18,7 +18,7 @@ setup(
     license='BSD License',
     description='A simple python wrapper around National Rail Enquires LDBS SOAP Webservice',
     long_description=README,
-    #url='https://github.com/robert-b-clarke/django-laconicurls',
+    url='https://github.com/robert-b-clarke/nre-darwin-py',
     author='Robert Clarke',
     author_email='rob@redanorak.co.uk',
     test_suite='test_nredarwin',
@@ -30,6 +30,6 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-        'Development Status :: 4 - Beta',
+        'Development Status :: 4 - Beta'
     ],
 )
