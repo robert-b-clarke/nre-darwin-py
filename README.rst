@@ -17,7 +17,7 @@ This module has the following goals:
 Getting started
 ---------------
 
-Firstly you need to register for Darwin access, you can do this via National Rail Enquires `developer site <http://www.nationalrail.co.uk/46391.aspx>`_.
+You will need to register for Darwin access, you can do this via National Rail Enquiries `developer site <http://www.nationalrail.co.uk/46391.aspx>`_.
 
 Basic usage
 -----------
@@ -43,3 +43,17 @@ Retrieve more detailed information regarding a particular service::
     [Gorton, Fairfield, Guide Bridge, Hyde Central, Woodley, Romiley, Rose Hill Marple]
 
 The provided example.py script shows a simple departure board implementation for your reference
+
+Practicalities
+--------------
+
+* The environment variables `DARWIN_WEBSERVICE_WSDL` and `DARWIN_WEBSERVICE_API_KEY` can be used to set the WSDL url and api key, so you don't have to specify them when initiating a Session.
+* The WSDL url for the LDB Webservice may change from time to time, and has one in the past. Your application should take this into account.
+* Any call to get_station_board or get_service_details will result in a query to the LDB Webservice, and therefore an HTTP request to an external service. Your application will need to handle caching and failure modes itself.
+* There is an overhead involved when creating a Session, as the WSDL must be retrieved and parsed.
+
+TODO
+----
+
+* Make departure and arrival times available as timezone-aware datetime objects
+* More detailed exception handling
