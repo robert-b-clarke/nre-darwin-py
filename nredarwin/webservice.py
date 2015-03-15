@@ -477,7 +477,8 @@ class CallingPoint(SoapResponseBase):
         ('location_name', 'locationName'),
         ('crs', 'crs'),
         ('et', 'et'),
-        ('at', 'at')
+        ('at', 'at'),
+        ('st', 'st')
     ]
 
     @property
@@ -511,6 +512,15 @@ class CallingPoint(SoapResponseBase):
         Human readable string, no guaranteed format
         """
         return self._et
+
+    @property
+    def st(self):
+        """
+        Scheduled time
+
+        Human readable string, no guaranteed format
+        """
+        return self._st
 
 class WebServiceError(Exception):
     pass
