@@ -398,6 +398,8 @@ class ServiceDetails(ServiceDetailsBase):
         ('overdue_message', 'overdueMessage'),
         ('ata', 'ata'),
         ('atd', 'atd'),
+        ('location_name', 'locationName'),
+        ('crs', 'crs'),
     ]
    
     def __init__(self, soap_data, *args, **kwargs):
@@ -456,6 +458,23 @@ class ServiceDetails(ServiceDetailsBase):
         A human readable string, not guaranteed to be a machine-parsable time
         """
         return self._atd
+
+    @property
+    def location_name(self):
+        """
+        Location Name
+
+        The name of the location from which the details of this service are being accessed
+        and to which the service attributes such as times correspond.
+        """
+        return self._location_name
+
+    @property
+    def crs(self):
+        """
+        The CRS code corresponding to the location_name property.
+        """
+        return self._crs
 
     @property
     def previous_calling_points(self):
