@@ -81,6 +81,8 @@ class ServiceDetailsTest(unittest.TestCase):
         self.assertEqual(self.service_details.operator_code, 'EM')
         self.assertEqual(self.service_details.ata, None)
         self.assertEqual(self.service_details.atd, None)
+        self.assertEqual(self.service_details.location_name, 'Manchester Piccadilly')
+        self.assertEqual(self.service_details.crs, 'MAN')
 
     def test_messages(self):
         self.assertFalse(self.service_details.is_cancelled)
