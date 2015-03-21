@@ -93,6 +93,11 @@ class ServiceDetailsTest(unittest.TestCase):
         self.assertEqual(len(self.service_details.previous_calling_points), 5)
         self.assertEqual(len(self.service_details.subsequent_calling_points), 14)
 
+        self.assertEqual(len(self.service_details.previous_calling_point_lists), 1)
+        self.assertEqual(len(self.service_details.previous_calling_point_lists[0].calling_points), 5)
+        self.assertEqual(len(self.service_details.subsequent_calling_point_lists), 1)
+        self.assertEqual(len(self.service_details.subsequent_calling_point_lists[0].calling_points), 14)
+
     
 
 if __name__ == '__main__':
