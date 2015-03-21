@@ -479,14 +479,20 @@ class ServiceDetails(ServiceDetailsBase):
     @property
     def previous_calling_points(self):
         """
-        A list of CallingPoint objects 
+        A list of CallingPoint objects.
+
+        This is the list of all previous calling points for the service, including all associated
+        services if multiple services join together to form this service.
         """
         return self._previous_calling_points
 
     @property
     def subsequent_calling_points(self):
         """
-        A list of CallingPoint objects 
+        A list of CallingPoint objects.
+
+        This is the list of all subsequent calling points for the service, including all associated
+        services if the service splits into multiple services.
         """
         return self._subsequent_calling_points
 
