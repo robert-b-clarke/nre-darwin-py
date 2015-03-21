@@ -404,21 +404,18 @@ class ServiceDetails(ServiceDetailsBase):
    
     def __init__(self, soap_data, *args, **kwargs):
         super(ServiceDetails, self).__init__(soap_data, *args, **kwargs)
-        #print soap_data.subsequentCallingPoints.callingPointList[0]
-        self._previous_calling_points = self._calling_point_list(soap_data, 'previousCallingPoints')
-        self._subsequent_calling_points = self._calling_point_list(soap_data, 'subsequentCallingPoints')
+        self._previous_calling_point_lists = self._calling_point_lists(soap_data, 'previousCallingPoints')
+        self._subsequent_calling_point_lists = self._calling_point_lists(soap_data, 'subsequentCallingPoints')
 
-    def _calling_point_list(self, soap_data, src_key):
+    def _calling_point_lists(self, soap_data, src_key):
         try:
             calling_points = getattr(getattr(soap_data, src_key), 'callingPointList')
         except AttributeError:
             return []
-        #print calling_points[0].callingPoint[0]
-        points = []
+        lists = []
         for sublist in calling_points:
-            for point in sublist.callingPoint:
-                points.append(CallingPoint(point))
-        return points
+            lists.append(CallingPointList(sublist))
+        return lists
 
     @property
     def is_cancelled(self):
@@ -477,6 +474,30 @@ class ServiceDetails(ServiceDetailsBase):
         return self._crs
 
     @property
+    def previous_calling_point_lists(self):
+        """
+        A list of CallingPointLists.
+
+        The first CallingPointList is all the calling points of the through train from its origin up
+        until immediately before here, with any additional CallingPointLIsts (if they are present)
+        containing the calling points of associated trains which join the through train from their
+        respective origins through to the calling point at which they join with the through train.
+        """
+        return self._previous_calling_point_lists
+
+    @property
+    def subsequent_calling_point_lists(self):
+        """
+        A list of CallingPointLists.
+
+        The first CallingPointList is all the calling points of the through train after here until
+        its destination, with any additional CallingPointLists (if they are present) containing the
+        calling points of associated trains which split from the through train from the calling
+        point at which they split off from the through train until their respective destinations.
+        """
+        return self._subsequent_calling_point_lists
+
+    @property
     def previous_calling_points(self):
         """
         A list of CallingPoint objects.
@@ -484,7 +505,7 @@ class ServiceDetails(ServiceDetailsBase):
         This is the list of all previous calling points for the service, including all associated
         services if multiple services join together to form this service.
         """
-        return self._previous_calling_points
+        return [cp for cpl in self._previous_calling_point_lists for cp in cpl.calling_points]
 
     @property
     def subsequent_calling_points(self):
@@ -494,7 +515,7 @@ class ServiceDetails(ServiceDetailsBase):
         This is the list of all subsequent calling points for the service, including all associated
         services if the service splits into multiple services.
         """
-        return self._subsequent_calling_points
+        return [cp for cpl in self._subsequent_calling_point_lists for cp in cpl.calling_points]
 
 class CallingPoint(SoapResponseBase):
     """A single calling point on a train route"""
@@ -546,6 +567,65 @@ class CallingPoint(SoapResponseBase):
         Human readable string, no guaranteed format
         """
         return self._st
+
+class CallingPointList(SoapResponseBase):
+    """ A list of calling points"""
+    field_mapping = [
+        ('service_type', '_serviceType'),
+        ('service_change_required', '_serviceChangeRequired'),
+        ('association_is_cancelled', '_assocIsCancelled'),
+    ]
+
+    def __init__(self, soap_data, *args, **kwargs):
+        super(CallingPointList, self).__init__(soap_data, *args, **kwargs)
+        self._calling_points = self._calling_point_list(soap_data, 'callingPoint')
+
+    def _calling_point_list(self, soap_data, src_key):
+        try:
+            calling_points = getattr(soap_data, src_key)
+        except AttributeError:
+            return []
+        calling_points_list = []
+        for point in calling_points:
+            calling_points_list.append(CallingPoint(point))
+        return calling_points_list
+
+    @property
+    def calling_points(self):
+        """
+        List of CallingPoint objects
+
+        All the calling points contained within this calling point list
+        """
+        return self._calling_points
+
+    @property
+    def service_type(self):
+        """
+        Service type
+
+        The service type of the service with these calling points (e.g. "train")
+        """
+        return self._service_type
+
+    @property
+    def service_change_required(self):
+        """
+        Service change required
+
+        A boolean indicating whether a change is required between the through service and the
+        service to these calling points.
+        """
+        return self._service_change_required
+
+    @property
+    def association_is_cancelled(self):
+        """
+        Association is cancelled
+
+        A boolean indicating whether this association is cancelled.
+        """
+        return self._association_is_cancelled
 
 class WebServiceError(Exception):
     pass
