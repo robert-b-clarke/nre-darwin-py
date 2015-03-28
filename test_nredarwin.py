@@ -93,7 +93,36 @@ class ServiceDetailsTest(unittest.TestCase):
         self.assertEqual(len(self.service_details.previous_calling_points), 5)
         self.assertEqual(len(self.service_details.subsequent_calling_points), 14)
 
-    
+        self.assertEqual(len(self.service_details.previous_calling_point_lists), 1)
+        self.assertEqual(len(self.service_details.previous_calling_point_lists[0].calling_points), 5)
+        self.assertEqual(len(self.service_details.subsequent_calling_point_lists), 1)
+        self.assertEqual(len(self.service_details.subsequent_calling_point_lists[0].calling_points), 14)
+
+class CallingPointsTest(unittest.TestCase):
+
+    def setUp(self):
+        resp = TEST_SOAP_CLIENT.mock_response_from_file('LDBServiceSoap', 'GetServiceDetails', filename="service-details-splits-after.xml")
+        self.service_details_splits_after = nredarwin.webservice.ServiceDetails(resp)
+
+    def test_basic(self):
+        self.assertEqual(len(self.service_details_splits_after.previous_calling_points), 5)
+        self.assertEqual(len(self.service_details_splits_after.subsequent_calling_points), 18)
+
+        calling_point_list = self.service_details_splits_after.previous_calling_point_lists[0]
+        self.assertEqual(calling_point_list.service_type, "train")
+        self.assertEqual(calling_point_list.service_change_required, False)
+        self.assertEqual(calling_point_list.association_is_cancelled, False)
+        
+    def test_previous_calling_points(self):
+        self.assertEqual(len(self.service_details_splits_after.previous_calling_point_lists), 1)
+        self.assertEqual(len(self.service_details_splits_after.previous_calling_point_lists[0].calling_points), 5)
+
+    def test_subsequent_calling_points(self):
+        self.assertEqual(len(self.service_details_splits_after.subsequent_calling_point_lists), 2)
+        self.assertEqual(len(self.service_details_splits_after.subsequent_calling_point_lists[0].calling_points), 16)
+        self.assertEqual(len(self.service_details_splits_after.subsequent_calling_point_lists[1].calling_points), 2)
+
+
 
 if __name__ == '__main__':
     unittest.main()
