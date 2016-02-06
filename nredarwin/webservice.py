@@ -128,8 +128,10 @@ destination_crs and origin_crs, using only destination_crs"
         Positional arguments:
         service_id: A Darwin LDB service id
         """
+        service_query = \
+            self._soap_client.service['LDBServiceSoap']['GetServiceDetails']
         try:
-            soap_response = self._soap_client.service['LDBServiceSoap']['GetServiceDetails'](serviceID=service_id)
+            soap_response = service_query(serviceID=service_id)
         except WebFault:
             raise WebServiceError
         return ServiceDetails(soap_response)
