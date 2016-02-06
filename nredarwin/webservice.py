@@ -183,7 +183,8 @@ class StationBoard(SoapResponseBase):
                 [ServiceItem(s) for s in service_rows]
             )
         # populate nrcc_messages
-        if hasattr(soap_response, 'nrccMessages') and hasattr(soap_response.nrccMessages, 'message'):
+        if hasattr(soap_response, 'nrccMessages') and \
+           hasattr(soap_response.nrccMessages, 'message'):
             # TODO - would be nice to strip HTML from these, especially as
             # it's not compliant with modern standards
             self._nrcc_messages = soap_response.nrccMessages.message
@@ -378,7 +379,8 @@ class ServiceItem(ServiceDetailsBase):
     @property
     def service_id(self):
         """
-        The unique ID of this service. This ID is specific to the Darwin LDB Service
+        The unique ID of this service. This ID is specific to the Darwin LDB
+        Service
         """
         return self._service_id
 
@@ -588,8 +590,8 @@ class ServiceDetails(ServiceDetailsBase):
         train after here until its destination, with any additional
         CallingPointLists (if they are present) containing the calling points
         of associated trains which split from the through train from the
-        calling point at which they split off from the through train until their
-        respective destinations.
+        calling point at which they split off from the through train until
+        their respective destinations.
         """
         return self._subsequent_calling_point_lists
 
