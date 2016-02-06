@@ -1,4 +1,6 @@
 from suds.client import Client
+from suds.transport.http import HttpTransport
+
 from suds.sax.element import Element
 from suds import WebFault
 from functools import partial
@@ -8,6 +10,22 @@ import os
 log = logging.getLogger(__name__)
 #TODO - timeouts and error handling
 DARWIN_WEBSERVICE_NAMESPACE = ('com','http://thalesgroup.com/RTTI/2010-11-01/ldb/commontypes')
+
+
+class WellBehavedHttpTransport(HttpTransport):
+    """
+    Suds HttpTransport which properly obeys the ``*_proxy`` environment variables.
+    """ 
+
+    def u2handlers(self):
+        """
+        Override suds HTTP Transport as it does not properly honor local
+        system configuration for proxy settings
+
+        Derived from https://gist.github.com/rbarrois/3721801
+        """
+        return []
+
 
 class DarwinLdbSession(object):
     """
@@ -27,7 +45,7 @@ class DarwinLdbSession(object):
             wsdl = os.environ['DARWIN_WEBSERVICE_WSDL']
         if not api_key:
             api_key = os.environ['DARWIN_WEBSERVICE_API_KEY']
-        self._soap_client = Client(wsdl)
+        self._soap_client = Client(wsdl, transport=WellBehavedHttpTransport())
         self._soap_client.set_options(timeout=timeout)
         #build soap headers
         token3 = Element('AccessToken', ns=DARWIN_WEBSERVICE_NAMESPACE)
@@ -39,7 +57,7 @@ class DarwinLdbSession(object):
     def _base_query(self):
         return self._soap_client.service['LDBServiceSoap']
 
-    def get_station_board(self, crs, rows=10, include_departures=True, include_arrivals=False, destination_crs=None, origin_crs=None):
+    def get_station_board(self, crs, rows=17, include_departures=True, include_arrivals=False, destination_crs=None, origin_crs=None):
         """
         Query the darwin webservice to obtain a board for a particular station and return a StationBoard instance
 
