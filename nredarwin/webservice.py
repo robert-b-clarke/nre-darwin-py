@@ -359,8 +359,13 @@ class ServiceItem(ServiceDetailsBase):
 
         # handle service location lists - these should be empty lists if there
         # are no locations
-        self._origins = [ServiceLocation(l) for l in soap_data.origin.location] if hasattr(soap_data.origin, 'location') else []
-        self._destinations = [ServiceLocation(l) for l in soap_data.destination.location] if hasattr(soap_data.origin, 'location') else []
+        self._origins = list()
+        self._destinations = list()
+        if hasattr(soap_data.origin, 'location'):
+            for orig_loc in soap_data.origin.location:
+                self._origins.append(ServiceLocation(orig_loc))
+            for dst_loc in soap_data.destination.location:
+                self._destinations.append(ServiceLocation(dst_loc))
 
     @property
     def is_circular_route(self):
@@ -597,7 +602,10 @@ class ServiceDetails(ServiceDetailsBase):
         including all associated services if multiple services join together
         to form this service.
         """
-        return [cp for cpl in self._previous_calling_point_lists for cp in cpl.calling_points]
+        calling_points = list()
+        for cpl in self._previous_calling_point_lists:
+            calling_points += cpl.calling_points
+        return calling_points
 
     @property
     def subsequent_calling_points(self):
@@ -608,7 +616,10 @@ class ServiceDetails(ServiceDetailsBase):
         including all associated services if the service splits into multiple
         services.
         """
-        return [cp for cpl in self._subsequent_calling_point_lists for cp in cpl.calling_points]
+        calling_points = list()
+        for cpl in self._subsequent_calling_point_lists:
+            calling_points += cpl.calling_points
+        return calling_points
 
 
 class CallingPoint(SoapResponseBase):
