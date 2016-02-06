@@ -8,14 +8,18 @@ import logging
 import os
 
 log = logging.getLogger(__name__)
-#TODO - timeouts and error handling
-DARWIN_WEBSERVICE_NAMESPACE = ('com','http://thalesgroup.com/RTTI/2010-11-01/ldb/commontypes')
+# TODO - timeouts and error handling
+DARWIN_WEBSERVICE_NAMESPACE = (
+    'com',
+    'http://thalesgroup.com/RTTI/2010-11-01/ldb/commontypes'
+)
 
 
 class WellBehavedHttpTransport(HttpTransport):
     """
-    Suds HttpTransport which properly obeys the ``*_proxy`` environment variables.
-    """ 
+    Suds HttpTransport which properly obeys the ``*_proxy`` environment
+    variables.
+    """
 
     def u2handlers(self):
         """
@@ -37,9 +41,12 @@ class DarwinLdbSession(object):
         Constructor
 
         Keyword arguments:
-        wsdl -- the URL of the Darwin LDB WSDL document. Will fall back to using the DARWIN_WEBSERVICE_WSDL environment variable if not supplied
-        api_key -- a valid API key for the Darwin LDB webservice. Will fall back to the DARWIN_WEBSERVICE_API_KEY if not supplied
-        timeout -- a timeout in seconds for calls to the LDB Webservice (default 5)
+        wsdl -- the URL of the Darwin LDB WSDL document. Will fall back to
+        using the DARWIN_WEBSERVICE_WSDL environment variable if not supplied
+        api_key -- a valid API key for the Darwin LDB webservice. Will fall
+        back to the DARWIN_WEBSERVICE_API_KEY if not supplied
+        timeout -- a timeout in seconds for calls to the LDB Webservice
+        (default 5)
         """
         if not wsdl:
             wsdl = os.environ['DARWIN_WEBSERVICE_WSDL']
@@ -47,7 +54,7 @@ class DarwinLdbSession(object):
             api_key = os.environ['DARWIN_WEBSERVICE_API_KEY']
         self._soap_client = Client(wsdl, transport=WellBehavedHttpTransport())
         self._soap_client.set_options(timeout=timeout)
-        #build soap headers
+        # build soap headers
         token3 = Element('AccessToken', ns=DARWIN_WEBSERVICE_NAMESPACE)
         token_value = Element('TokenValue', ns=DARWIN_WEBSERVICE_NAMESPACE)
         token_value.setText(api_key)
@@ -57,21 +64,34 @@ class DarwinLdbSession(object):
     def _base_query(self):
         return self._soap_client.service['LDBServiceSoap']
 
-    def get_station_board(self, crs, rows=17, include_departures=True, include_arrivals=False, destination_crs=None, origin_crs=None):
+    def get_station_board(
+        self,
+        crs,
+        rows=17,
+        include_departures=True,
+        include_arrivals=False,
+        destination_crs=None,
+        origin_crs=None
+    ):
         """
-        Query the darwin webservice to obtain a board for a particular station and return a StationBoard instance
+        Query the darwin webservice to obtain a board for a particular station
+        and return a StationBoard instance
 
         Positional arguments:
         crs -- the three letter CRS code of a UK station
 
         Keyword arguments:
         rows -- the number of rows to retrieve (default 10)
-        include_departures -- include departing services in the departure board (default True)
-        include_arrivals -- include arriving services in the departure board (default False)
-        destination_crs -- filter results so they only include services calling at a particular destination (default None)
-        origin_crs -- filter results so they only include services originating from a particular station (default None)
+        include_departures -- include departing services in the departure board
+        (default True)
+        include_arrivals -- include arriving services in the departure board
+        (default False)
+        destination_crs -- filter results so they only include services
+        calling at a particular destination (default None)
+        origin_crs -- filter results so they only include services
+        originating from a particular station (default None)
         """
-        #Determine the darwn query we want to make
+        # Determine the darwn query we want to make
         if include_departures and include_arrivals:
             query_type = 'GetArrivalDepartureBoard'
         elif include_departures:
@@ -79,12 +99,18 @@ class DarwinLdbSession(object):
         elif include_arrivals:
             query_type = 'GetArrivalBoard'
         else:
-            raise ValueError("get_station_board must have either include_departures or include_arrivals set to True")
-        #build a query function
+            raise ValueError(
+                "get_station_board must have either include_departures or \
+include_arrivals set to True"
+            )
+        # build a query function
         q = partial(self._base_query()[query_type], crs=crs, numRows=rows)
         if destination_crs:
             if origin_crs:
-                log.warn("Station board query can only filter on one of destination_crs and origin_crs, using only destination_crs")
+                log.warn(
+                    "Station board query can only filter on one of \
+destination_crs and origin_crs, using only destination_crs"
+                )
             q = partial(q, filterCrs=destination_crs, filterType='to')
         elif origin_crs:
             q = partial(q, filterCrs=origin_crs, filterType='from')
@@ -94,19 +120,22 @@ class DarwinLdbSession(object):
             raise WebServiceError
         return StationBoard(soap_response)
 
-    
     def get_service_details(self, service_id):
         """
-        Get the details of an individual service and return a ServiceDetails instance.
+        Get the details of an individual service and return a ServiceDetails
+        instance.
 
         Positional arguments:
         service_id: A Darwin LDB service id
         """
+        service_query = \
+            self._soap_client.service['LDBServiceSoap']['GetServiceDetails']
         try:
-            soap_response = self._soap_client.service['LDBServiceSoap']['GetServiceDetails'](serviceID=service_id)
+            soap_response = service_query(serviceID=service_id)
         except WebFault:
             raise WebServiceError
         return ServiceDetails(soap_response)
+
 
 class SoapResponseBase(object):
 
@@ -118,7 +147,6 @@ class SoapResponseBase(object):
                 val = None
             setattr(self, '_' + dest_key, val)
 
-        
 
 class StationBoard(SoapResponseBase):
     """
@@ -138,19 +166,29 @@ class StationBoard(SoapResponseBase):
     ]
 
     def __init__(self, soap_response, *args, **kwargs):
-        super(StationBoard,self).__init__(soap_response, *args, **kwargs)
-        #populate service lists - these are specific to station board objects, so not included in base class
+        super(StationBoard, self).__init__(soap_response, *args, **kwargs)
+        # populate service lists - these are specific to station board
+        # objects, so not included in base class
         for dest_key, src_key in self.__class__.service_lists:
             try:
-                service_rows = getattr(getattr(soap_response, src_key), 'service')
+                service_rows = getattr(
+                    getattr(soap_response, src_key),
+                    'service'
+                )
             except AttributeError:
                 setattr(self, '_' + dest_key, [])
                 continue
 
-            setattr(self, '_' + dest_key, [ServiceItem(s) for s  in service_rows])
-        #populate nrcc_messages
-        if hasattr(soap_response, 'nrccMessages') and hasattr(soap_response.nrccMessages, 'message'):
-            #TODO - would be nice to strip HTML from these, especially as it's not compliant with modern standards
+            setattr(
+                self,
+                '_' + dest_key,
+                [ServiceItem(s) for s in service_rows]
+            )
+        # populate nrcc_messages
+        if hasattr(soap_response, 'nrccMessages') and \
+           hasattr(soap_response.nrccMessages, 'message'):
+            # TODO - would be nice to strip HTML from these, especially as
+            # it's not compliant with modern standards
             self._nrcc_messages = soap_response.nrccMessages.message
         else:
             self._nrcc_messages = []
@@ -158,14 +196,14 @@ class StationBoard(SoapResponseBase):
     @property
     def generated_at(self):
         """
-        The time at which the station board was generated. 
+        The time at which the station board was generated.
         """
         return self._generated_at
 
     @property
     def crs(self):
         """
-        The CRS code for the station. 
+        The CRS code for the station.
         """
         return self._crs
 
@@ -179,35 +217,42 @@ class StationBoard(SoapResponseBase):
     @property
     def train_services(self):
         """
-        A list of train services that appear on this board. Empty if there are none
+        A list of train services that appear on this board. Empty if there are
+        none
         """
         return self._train_services
 
     @property
     def bus_services(self):
         """
-        A list of bus services that appear on this board. Empty if there are none
+        A list of bus services that appear on this board. Empty if there are
+        none
         """
         return self._bus_services
 
     @property
     def ferry_services(self):
         """
-        A list of ferry services that appear on this board. Empty if there are none
+        A list of ferry services that appear on this board. Empty if there are
+        none
         """
         return self._ferry_services
 
     @property
     def nrcc_messages(self):
         """
-        An optional list of important messages that should be displayed with the station board. Messages may include HTML hyperlinks and paragraphs.        """
+        An optional list of important messages that should be displayed with
+        the station board. Messages may include HTML hyperlinks and
+        paragraphs
+        """
         return self._nrcc_messages
 
     def __str__(self):
         return "%s - %s" % (self.crs, self.location_name)
 
+
 class ServiceDetailsBase(SoapResponseBase):
-    #The generic stuff that both service details classes have
+    # The generic stuff that both service details classes have
     field_mapping = [
         ('sta', 'sta'),
         ('eta', 'eta'),
@@ -218,7 +263,6 @@ class ServiceDetailsBase(SoapResponseBase):
         ('operator_code', 'operatorCode'),
     ]
 
-
     @property
     def scheduled_arrival(self):
         raise NotImplementedError()
@@ -226,7 +270,7 @@ class ServiceDetailsBase(SoapResponseBase):
     @property
     def estimated_arrival(self):
         raise NotImplementedError()
-        
+
     @property
     def scheduled_departure(self):
         raise NotImplementedError()
@@ -238,36 +282,44 @@ class ServiceDetailsBase(SoapResponseBase):
     @property
     def sta(self):
         """
-        Scheduled Time of Arrival. This is optional and may be present for station boards which include arrivals.
+        Scheduled Time of Arrival. This is optional and may be present for
+        station boards which include arrivals.
 
-        This is a human readable string rather than a proper datetime object and may not be a time at all
+        This is a human readable string rather than a proper datetime object
+        and may not be a time at all
         """
         return self._sta
 
     @property
     def eta(self):
         """
-        Estimated Time of Arrival. This is optional and may be present when an sta (Scheduled Time of Arrival) is available.
+        Estimated Time of Arrival. This is optional and may be present when an
+        sta (Scheduled Time of Arrival) is available.
 
-        This is a human readable string rather than a proper datetime object and may not be a time at all
+        This is a human readable string rather than a proper datetime object
+        and may not be a time at all
         """
         return self._eta
 
     @property
     def std(self):
         """
-        Scheduled Time of Departure. This is optional and may be present for station boards which include departures
+        Scheduled Time of Departure. This is optional and may be present for
+        station boards which include departures
 
-        This is a human readable string rather than a proper datetime object and may not be a time at all
+        This is a human readable string rather than a proper datetime object
+        and may not be a time at all
         """
         return self._std
 
     @property
     def etd(self):
         """
-        Estimated Time of Departure. This is optional and may be present for results which contain an std (Scheduled Time of Departure)
+        Estimated Time of Departure. This is optional and may be present for
+        results which contain an std (Scheduled Time of Departure)
 
-        This is a human readable string rather than a proper datetime object and may not be a time at all
+        This is a human readable string rather than a proper datetime object
+        and may not be a time at all
         """
         return self._etd
 
@@ -292,7 +344,8 @@ class ServiceDetailsBase(SoapResponseBase):
         """
         return self._operator_code
 
-    #TODO -Adhoc alerts, datetime inflators - if possible
+    # TODO -Adhoc alerts, datetime inflators - if possible
+
 
 class ServiceItem(ServiceDetailsBase):
     """
@@ -303,39 +356,49 @@ class ServiceItem(ServiceDetailsBase):
         ('is_circular_route', 'isCircularRoute'),
         ('service_id', 'serviceID'),
     ]
-    
+
     def __init__(self, soap_data, *args, **kwargs):
         super(ServiceItem, self).__init__(soap_data, *args, **kwargs)
 
-        #handle service location lists - these should be empty lists if there are no locations
-        self._origins = [ServiceLocation(l) for l  in soap_data.origin.location] if hasattr(soap_data.origin, 'location') else []
-        self._destinations = [ServiceLocation(l) for l  in soap_data.destination.location] if hasattr(soap_data.origin, 'location') else []
+        # handle service location lists - these should be empty lists if there
+        # are no locations
+        self._origins = list()
+        self._destinations = list()
+        if hasattr(soap_data.origin, 'location'):
+            for orig_loc in soap_data.origin.location:
+                self._origins.append(ServiceLocation(orig_loc))
+            for dst_loc in soap_data.destination.location:
+                self._destinations.append(ServiceLocation(dst_loc))
 
     @property
     def is_circular_route(self):
         """
-        If True this service is following a circular route and will call again at this station.
+        If True this service is following a circular route and will call again
+        at this station.
         """
         return self._is_circular_route
 
     @property
     def service_id(self):
         """
-        The unique ID of this service. This ID is specific to the Darwin LDB Service
+        The unique ID of this service. This ID is specific to the Darwin LDB
+        Service
         """
         return self._service_id
 
     @property
     def origins(self):
         """
-        A list of ServiceLocation objects describing the origins of this service. A service may have more than multiple origins.
+        A list of ServiceLocation objects describing the origins of this
+        service. A service may have more than multiple origins.
         """
         return self._origins
 
     @property
     def destinations(self):
         """
-        A list of ServiceLocation objects describing the destinations of this service. A service may have more than multiple destinations.
+        A list of ServiceLocation objects describing the destinations of this
+        service. A service may have more than multiple destinations.
         """
         return self._destinations
 
@@ -370,7 +433,7 @@ class ServiceLocation(SoapResponseBase):
         ('via', 'via'),
         ('future_change_to', 'futureChangeTo')
     ]
-    
+
     @property
     def location_name(self):
         """
@@ -388,22 +451,26 @@ class ServiceLocation(SoapResponseBase):
     @property
     def via(self):
         """
-        An optional string that should be displayed alongside the location_name. This provides additional context regarding an ambiguous route.
+        An optional string that should be displayed alongside the
+        location_name. This provides additional context regarding an
+        ambiguous route.
         """
         return self._via
 
     @property
     def future_change_to(self):
         """
-        An optional string that indicates a service type (Bus/Ferry/Train) which will replace the current service type in the future.
+        An optional string that indicates a service type (Bus/Ferry/Train)
+        which will replace the current service type in the future.
         """
         return self._future_change_to
-    
+
     def __str__(self):
         if self.via:
             return "%s %s" % (self.location_name, self.via)
         else:
             return self.location_name
+
 
 class ServiceDetails(ServiceDetailsBase):
     """
@@ -419,15 +486,24 @@ class ServiceDetails(ServiceDetailsBase):
         ('location_name', 'locationName'),
         ('crs', 'crs'),
     ]
-   
+
     def __init__(self, soap_data, *args, **kwargs):
         super(ServiceDetails, self).__init__(soap_data, *args, **kwargs)
-        self._previous_calling_point_lists = self._calling_point_lists(soap_data, 'previousCallingPoints')
-        self._subsequent_calling_point_lists = self._calling_point_lists(soap_data, 'subsequentCallingPoints')
+        self._previous_calling_point_lists = self._calling_point_lists(
+            soap_data,
+            'previousCallingPoints'
+        )
+        self._subsequent_calling_point_lists = self._calling_point_lists(
+            soap_data,
+            'subsequentCallingPoints'
+        )
 
     def _calling_point_lists(self, soap_data, src_key):
         try:
-            calling_points = getattr(getattr(soap_data, src_key), 'callingPointList')
+            calling_points = getattr(
+                getattr(soap_data, src_key),
+                'callingPointList'
+            )
         except AttributeError:
             return []
         lists = []
@@ -445,7 +521,8 @@ class ServiceDetails(ServiceDetailsBase):
     @property
     def disruption_reason(self):
         """
-        A string containing a disruption reason for this service, if it is delayed or cancelled.
+        A string containing a disruption reason for this service, if it is
+        delayed or cancelled.
         """
         return self._disruption_reason
 
@@ -479,8 +556,9 @@ class ServiceDetails(ServiceDetailsBase):
         """
         Location Name
 
-        The name of the location from which the details of this service are being accessed
-        and to which the service attributes such as times correspond.
+        The name of the location from which the details of this service are
+        being accessed and to which the service attributes such as times
+        correspond.
         """
         return self._location_name
 
@@ -496,10 +574,12 @@ class ServiceDetails(ServiceDetailsBase):
         """
         A list of CallingPointLists.
 
-        The first CallingPointList is all the calling points of the through train from its origin up
-        until immediately before here, with any additional CallingPointLIsts (if they are present)
-        containing the calling points of associated trains which join the through train from their
-        respective origins through to the calling point at which they join with the through train.
+        The first CallingPointList is all the calling points of the through
+        train from its origin up until immediately before here, with any
+        additional CallingPointLIsts (if they are present) containing the
+        calling points of associated trains which join the through train from
+        their respective origins through to the calling point at which they
+        join with the through train.
         """
         return self._previous_calling_point_lists
 
@@ -508,10 +588,12 @@ class ServiceDetails(ServiceDetailsBase):
         """
         A list of CallingPointLists.
 
-        The first CallingPointList is all the calling points of the through train after here until
-        its destination, with any additional CallingPointLists (if they are present) containing the
-        calling points of associated trains which split from the through train from the calling
-        point at which they split off from the through train until their respective destinations.
+        The first CallingPointList is all the calling points of the through
+        train after here until its destination, with any additional
+        CallingPointLists (if they are present) containing the calling points
+        of associated trains which split from the through train from the
+        calling point at which they split off from the through train until
+        their respective destinations.
         """
         return self._subsequent_calling_point_lists
 
@@ -520,20 +602,29 @@ class ServiceDetails(ServiceDetailsBase):
         """
         A list of CallingPoint objects.
 
-        This is the list of all previous calling points for the service, including all associated
-        services if multiple services join together to form this service.
+        This is the list of all previous calling points for the service,
+        including all associated services if multiple services join together
+        to form this service.
         """
-        return [cp for cpl in self._previous_calling_point_lists for cp in cpl.calling_points]
+        calling_points = list()
+        for cpl in self._previous_calling_point_lists:
+            calling_points += cpl.calling_points
+        return calling_points
 
     @property
     def subsequent_calling_points(self):
         """
         A list of CallingPoint objects.
 
-        This is the list of all subsequent calling points for the service, including all associated
-        services if the service splits into multiple services.
+        This is the list of all subsequent calling points for the service,
+        including all associated services if the service splits into multiple
+        services.
         """
-        return [cp for cpl in self._subsequent_calling_point_lists for cp in cpl.calling_points]
+        calling_points = list()
+        for cpl in self._subsequent_calling_point_lists:
+            calling_points += cpl.calling_points
+        return calling_points
+
 
 class CallingPoint(SoapResponseBase):
     """A single calling point on a train route"""
@@ -555,7 +646,7 @@ class CallingPoint(SoapResponseBase):
     @property
     def crs(self):
         """
-        The CRS code for this location 
+        The CRS code for this location
         """
         return self._crs
 
@@ -586,6 +677,7 @@ class CallingPoint(SoapResponseBase):
         """
         return self._st
 
+
 class CallingPointList(SoapResponseBase):
     """ A list of calling points"""
     field_mapping = [
@@ -596,7 +688,10 @@ class CallingPointList(SoapResponseBase):
 
     def __init__(self, soap_data, *args, **kwargs):
         super(CallingPointList, self).__init__(soap_data, *args, **kwargs)
-        self._calling_points = self._calling_point_list(soap_data, 'callingPoint')
+        self._calling_points = self._calling_point_list(
+            soap_data,
+            'callingPoint'
+        )
 
     def _calling_point_list(self, soap_data, src_key):
         try:
@@ -622,7 +717,8 @@ class CallingPointList(SoapResponseBase):
         """
         Service type
 
-        The service type of the service with these calling points (e.g. "train")
+        The service type of the service with these calling points (e.g.
+        "train")
         """
         return self._service_type
 
@@ -631,8 +727,8 @@ class CallingPointList(SoapResponseBase):
         """
         Service change required
 
-        A boolean indicating whether a change is required between the through service and the
-        service to these calling points.
+        A boolean indicating whether a change is required between the through
+        service and the service to these calling points.
         """
         return self._service_change_required
 
@@ -644,6 +740,7 @@ class CallingPointList(SoapResponseBase):
         A boolean indicating whether this association is cancelled.
         """
         return self._association_is_cancelled
+
 
 class WebServiceError(Exception):
     pass

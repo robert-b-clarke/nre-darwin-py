@@ -14,9 +14,13 @@ setup(
     install_requires=[
         'suds-jurko'
     ],
+    setup_requires=[
+        'flake8==2.5.2'
+    ],
     include_package_data=True,
     license='BSD License',
-    description='A simple python wrapper around National Rail Enquires LDBS SOAP Webservice',
+    description='A simple python wrapper around National Rail Enquires \
+        LDBS SOAP Webservice',
     long_description=README,
     url='https://github.com/robert-b-clarke/nre-darwin-py',
     author='Robert Clarke',
@@ -25,7 +29,7 @@ setup(
     classifiers=[
         'Framework :: Django',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License', # example license
+        'License :: OSI Approved :: BSD License',  # example license
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
