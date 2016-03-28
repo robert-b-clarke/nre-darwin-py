@@ -485,6 +485,7 @@ class ServiceDetails(ServiceDetailsBase):
         ('atd', 'atd'),
         ('location_name', 'locationName'),
         ('crs', 'crs'),
+        ('generated_at', 'generatedAt'),
     ]
 
     def __init__(self, soap_data, *args, **kwargs):
@@ -568,6 +569,13 @@ class ServiceDetails(ServiceDetailsBase):
         The CRS code corresponding to the location_name property.
         """
         return self._crs
+
+    @property
+    def generated_at(self):
+        """
+        The time at which the service details were generated. 
+        """
+        return self._generated_at
 
     @property
     def previous_calling_point_lists(self):

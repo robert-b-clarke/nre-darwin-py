@@ -83,6 +83,7 @@ class ServiceDetailsTest(unittest.TestCase):
         self.assertEqual(self.service_details.atd, None)
         self.assertEqual(self.service_details.location_name, 'Manchester Piccadilly')
         self.assertEqual(self.service_details.crs, 'MAN')
+        self.assertEqual(self.service_details.generated_at.isoformat(), '2014-12-30T15:38:13.144272+00:00')
 
     def test_messages(self):
         self.assertFalse(self.service_details.is_cancelled)
