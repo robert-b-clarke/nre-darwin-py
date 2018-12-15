@@ -65,6 +65,11 @@ Practicalities
 * Any call to get_station_board or get_service_details will result in a query to the LDB Webservice, and therefore an HTTP request to an external service. Your application will need to handle caching and failure modes itself.
 * There is an overhead involved when creating a `DarwinLdbSession`, as the WSDL must be retrieved and parsed.
 
+Credits
+-------
+
+Additional contributions by George Goldberg. Advice on SUDS proxy issues from Pete Barking. 
+
 TODO
 ----
 
