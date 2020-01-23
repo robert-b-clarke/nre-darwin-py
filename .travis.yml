@@ -6,6 +6,8 @@ python:
   - "3.6"
 install:
   - "pip install ."
+  - pip install -r devenv-requirements.txt
 script:
-  - python setup.py flake8
+  - flake8 nredarwin
+  - flake8 tests
   - python setup.py test
