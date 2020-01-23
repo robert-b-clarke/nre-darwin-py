@@ -12,11 +12,15 @@ setup(
     version='0.2.0',
     packages=['nredarwin'],
     install_requires=[
-        'suds-jurko'
+        'suds-jurko',
+        'tabulate>=0.8.6',
     ],
     setup_requires=[
         'flake8==3.7.9'
     ],
+    entry_points={
+        'console_scripts' :['national-rail=nredarwin.cli:main']
+    },
     include_package_data=True,
     license='BSD License',
     description='A simple python wrapper around National Rail Enquires \
