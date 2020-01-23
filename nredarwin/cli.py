@@ -10,7 +10,7 @@ def rows_to_display(station_board):
     """
     Iterator for tabular output of board
     """
-    yield(("Platform", "Destination", "Scheduled", "Due"))
+    yield (("Platform", "Destination", "Scheduled", "Due"))
     for service in station_board.train_services:
         yield (
             service.platform,
@@ -23,24 +23,18 @@ def rows_to_display(station_board):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument(
-        "station",
-        type=str,
-        help="station CRS code, e.g. MAN for Manchester Piccadilly"
+        "station", type=str, help="station CRS code, e.g. MAN for Manchester Piccadilly"
     )
     ap.add_argument(
         "--destination",
         type=str,
         required=False,
-        help="Only include services travelling to this CRS code, e.g HUD"
+        help="Only include services travelling to this CRS code, e.g HUD",
     )
-    ap.add_argument(
-        "--csv",
-        action="store_true",
-        help="output in csv format"
-    )
+    ap.add_argument("--csv", action="store_true", help="output in csv format")
     args = ap.parse_args()
     darwin_session = DarwinLdbSession(
-        wsdl='https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx'
+        wsdl="https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx"
     )
     # build up query
     board_query = partial(darwin_session.get_station_board, args.station)

@@ -10,8 +10,8 @@ import os
 log = logging.getLogger(__name__)
 # TODO - timeouts and error handling
 DARWIN_WEBSERVICE_NAMESPACE = (
-    'com',
-    'http://thalesgroup.com/RTTI/2010-11-01/ldb/commontypes'
+    "com",
+    "http://thalesgroup.com/RTTI/2010-11-01/ldb/commontypes",
 )
 
 
@@ -49,20 +49,20 @@ class DarwinLdbSession(object):
         (default 5)
         """
         if not wsdl:
-            wsdl = os.environ['DARWIN_WEBSERVICE_WSDL']
+            wsdl = os.environ["DARWIN_WEBSERVICE_WSDL"]
         if not api_key:
-            api_key = os.environ['DARWIN_WEBSERVICE_API_KEY']
+            api_key = os.environ["DARWIN_WEBSERVICE_API_KEY"]
         self._soap_client = Client(wsdl, transport=WellBehavedHttpTransport())
         self._soap_client.set_options(timeout=timeout)
         # build soap headers
-        token3 = Element('AccessToken', ns=DARWIN_WEBSERVICE_NAMESPACE)
-        token_value = Element('TokenValue', ns=DARWIN_WEBSERVICE_NAMESPACE)
+        token3 = Element("AccessToken", ns=DARWIN_WEBSERVICE_NAMESPACE)
+        token_value = Element("TokenValue", ns=DARWIN_WEBSERVICE_NAMESPACE)
         token_value.setText(api_key)
         token3.append(token_value)
         self._soap_client.set_options(soapheaders=(token3))
 
     def _base_query(self):
-        return self._soap_client.service['LDBServiceSoap']
+        return self._soap_client.service["LDBServiceSoap"]
 
     def get_station_board(
         self,
@@ -71,7 +71,7 @@ class DarwinLdbSession(object):
         include_departures=True,
         include_arrivals=False,
         destination_crs=None,
-        origin_crs=None
+        origin_crs=None,
     ):
         """
         Query the darwin webservice to obtain a board for a particular station
@@ -93,11 +93,11 @@ class DarwinLdbSession(object):
         """
         # Determine the darwn query we want to make
         if include_departures and include_arrivals:
-            query_type = 'GetArrivalDepartureBoard'
+            query_type = "GetArrivalDepartureBoard"
         elif include_departures:
-            query_type = 'GetDepartureBoard'
+            query_type = "GetDepartureBoard"
         elif include_arrivals:
-            query_type = 'GetArrivalBoard'
+            query_type = "GetArrivalBoard"
         else:
             raise ValueError(
                 "get_station_board must have either include_departures or \
@@ -111,9 +111,9 @@ include_arrivals set to True"
                     "Station board query can only filter on one of \
 destination_crs and origin_crs, using only destination_crs"
                 )
-            q = partial(q, filterCrs=destination_crs, filterType='to')
+            q = partial(q, filterCrs=destination_crs, filterType="to")
         elif origin_crs:
-            q = partial(q, filterCrs=origin_crs, filterType='from')
+            q = partial(q, filterCrs=origin_crs, filterType="from")
         try:
             soap_response = q()
         except WebFault:
@@ -128,8 +128,7 @@ destination_crs and origin_crs, using only destination_crs"
         Positional arguments:
         service_id: A Darwin LDB service id
         """
-        service_query = \
-            self._soap_client.service['LDBServiceSoap']['GetServiceDetails']
+        service_query = self._soap_client.service["LDBServiceSoap"]["GetServiceDetails"]
         try:
             soap_response = service_query(serviceID=service_id)
         except WebFault:
@@ -138,14 +137,13 @@ destination_crs and origin_crs, using only destination_crs"
 
 
 class SoapResponseBase(object):
-
     def __init__(self, soap_response):
         for dest_key, src_key in self.__class__.field_mapping:
             try:
                 val = getattr(soap_response, src_key)
             except AttributeError:
                 val = None
-            setattr(self, '_' + dest_key, val)
+            setattr(self, "_" + dest_key, val)
 
 
 class StationBoard(SoapResponseBase):
@@ -154,15 +152,15 @@ class StationBoard(SoapResponseBase):
     """
 
     field_mapping = [
-        ('generated_at', 'generatedAt'),
-        ('crs', 'crs'),
-        ('location_name', 'locationName'),
+        ("generated_at", "generatedAt"),
+        ("crs", "crs"),
+        ("location_name", "locationName"),
     ]
 
     service_lists = [
-        ('train_services', 'trainServices'),
-        ('bus_services', 'busServices'),
-        ('ferry_services', 'ferryServices')
+        ("train_services", "trainServices"),
+        ("bus_services", "busServices"),
+        ("ferry_services", "ferryServices"),
     ]
 
     def __init__(self, soap_response, *args, **kwargs):
@@ -171,22 +169,16 @@ class StationBoard(SoapResponseBase):
         # objects, so not included in base class
         for dest_key, src_key in self.__class__.service_lists:
             try:
-                service_rows = getattr(
-                    getattr(soap_response, src_key),
-                    'service'
-                )
+                service_rows = getattr(getattr(soap_response, src_key), "service")
             except AttributeError:
-                setattr(self, '_' + dest_key, [])
+                setattr(self, "_" + dest_key, [])
                 continue
 
-            setattr(
-                self,
-                '_' + dest_key,
-                [ServiceItem(s) for s in service_rows]
-            )
+            setattr(self, "_" + dest_key, [ServiceItem(s) for s in service_rows])
         # populate nrcc_messages
-        if hasattr(soap_response, 'nrccMessages') and \
-           hasattr(soap_response.nrccMessages, 'message'):
+        if hasattr(soap_response, "nrccMessages") and hasattr(
+            soap_response.nrccMessages, "message"
+        ):
             # TODO - would be nice to strip HTML from these, especially as
             # it's not compliant with modern standards
             self._nrcc_messages = soap_response.nrccMessages.message
@@ -254,13 +246,13 @@ class StationBoard(SoapResponseBase):
 class ServiceDetailsBase(SoapResponseBase):
     # The generic stuff that both service details classes have
     field_mapping = [
-        ('sta', 'sta'),
-        ('eta', 'eta'),
-        ('std', 'std'),
-        ('etd', 'etd'),
-        ('platform', 'platform'),
-        ('operator_name', 'operator'),
-        ('operator_code', 'operatorCode'),
+        ("sta", "sta"),
+        ("eta", "eta"),
+        ("std", "std"),
+        ("etd", "etd"),
+        ("platform", "platform"),
+        ("operator_name", "operator"),
+        ("operator_code", "operatorCode"),
     ]
 
     @property
@@ -353,8 +345,8 @@ class ServiceItem(ServiceDetailsBase):
     """
 
     field_mapping = ServiceDetailsBase.field_mapping + [
-        ('is_circular_route', 'isCircularRoute'),
-        ('service_id', 'serviceID'),
+        ("is_circular_route", "isCircularRoute"),
+        ("service_id", "serviceID"),
     ]
 
     def __init__(self, soap_data, *args, **kwargs):
@@ -364,7 +356,7 @@ class ServiceItem(ServiceDetailsBase):
         # are no locations
         self._origins = list()
         self._destinations = list()
-        if hasattr(soap_data.origin, 'location'):
+        if hasattr(soap_data.origin, "location"):
             for orig_loc in soap_data.origin.location:
                 self._origins.append(ServiceLocation(orig_loc))
             for dst_loc in soap_data.destination.location:
@@ -427,11 +419,12 @@ class ServiceLocation(SoapResponseBase):
     """
     A single location from a service origin/destination list
     """
+
     field_mapping = [
-        ('location_name', 'locationName'),
-        ('crs', 'crs'),
-        ('via', 'via'),
-        ('future_change_to', 'futureChangeTo')
+        ("location_name", "locationName"),
+        ("crs", "crs"),
+        ("via", "via"),
+        ("future_change_to", "futureChangeTo"),
     ]
 
     @property
@@ -478,32 +471,27 @@ class ServiceDetails(ServiceDetailsBase):
     """
 
     field_mapping = ServiceDetailsBase.field_mapping + [
-        ('is_cancelled', 'isCancelled'),
-        ('disruption_reason', 'disruptionReason'),
-        ('overdue_message', 'overdueMessage'),
-        ('ata', 'ata'),
-        ('atd', 'atd'),
-        ('location_name', 'locationName'),
-        ('crs', 'crs'),
+        ("is_cancelled", "isCancelled"),
+        ("disruption_reason", "disruptionReason"),
+        ("overdue_message", "overdueMessage"),
+        ("ata", "ata"),
+        ("atd", "atd"),
+        ("location_name", "locationName"),
+        ("crs", "crs"),
     ]
 
     def __init__(self, soap_data, *args, **kwargs):
         super(ServiceDetails, self).__init__(soap_data, *args, **kwargs)
         self._previous_calling_point_lists = self._calling_point_lists(
-            soap_data,
-            'previousCallingPoints'
+            soap_data, "previousCallingPoints"
         )
         self._subsequent_calling_point_lists = self._calling_point_lists(
-            soap_data,
-            'subsequentCallingPoints'
+            soap_data, "subsequentCallingPoints"
         )
 
     def _calling_point_lists(self, soap_data, src_key):
         try:
-            calling_points = getattr(
-                getattr(soap_data, src_key),
-                'callingPointList'
-            )
+            calling_points = getattr(getattr(soap_data, src_key), "callingPointList")
         except AttributeError:
             return []
         lists = []
@@ -628,12 +616,13 @@ class ServiceDetails(ServiceDetailsBase):
 
 class CallingPoint(SoapResponseBase):
     """A single calling point on a train route"""
+
     field_mapping = [
-        ('location_name', 'locationName'),
-        ('crs', 'crs'),
-        ('et', 'et'),
-        ('at', 'at'),
-        ('st', 'st')
+        ("location_name", "locationName"),
+        ("crs", "crs"),
+        ("et", "et"),
+        ("at", "at"),
+        ("st", "st"),
     ]
 
     @property
@@ -680,18 +669,16 @@ class CallingPoint(SoapResponseBase):
 
 class CallingPointList(SoapResponseBase):
     """ A list of calling points"""
+
     field_mapping = [
-        ('service_type', '_serviceType'),
-        ('service_change_required', '_serviceChangeRequired'),
-        ('association_is_cancelled', '_assocIsCancelled'),
+        ("service_type", "_serviceType"),
+        ("service_change_required", "_serviceChangeRequired"),
+        ("association_is_cancelled", "_assocIsCancelled"),
     ]
 
     def __init__(self, soap_data, *args, **kwargs):
         super(CallingPointList, self).__init__(soap_data, *args, **kwargs)
-        self._calling_points = self._calling_point_list(
-            soap_data,
-            'callingPoint'
-        )
+        self._calling_points = self._calling_point_list(soap_data, "callingPoint")
 
     def _calling_point_list(self, soap_data, src_key):
         try:
