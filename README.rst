@@ -101,7 +101,7 @@ To set this up run::
     pip install -r devenv-requirements.txt
     pre-commit install
 
-This will enable a pre-commit hook to run linting checks with `flake8`
+This will enable a pre-commit hook to run linting checks with `flake8` and format any changed files with `black`
 
 Credits
 -------
