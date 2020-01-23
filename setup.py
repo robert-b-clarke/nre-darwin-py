@@ -15,7 +15,7 @@ setup(
         'suds-jurko'
     ],
     setup_requires=[
-        'flake8==2.5.2'
+        'flake8==3.7.9'
     ],
     include_package_data=True,
     license='BSD License',
@@ -25,7 +25,7 @@ setup(
     url='https://github.com/robert-b-clarke/nre-darwin-py',
     author='Robert Clarke',
     author_email='rob@redanorak.co.uk',
-    test_suite='test_nredarwin',
+    test_suite='tests',
     classifiers=[
         'Framework :: Django',
         'Intended Audience :: Developers',
