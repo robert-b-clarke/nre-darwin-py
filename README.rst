@@ -92,6 +92,17 @@ Practicalities
 * Any call to get_station_board or get_service_details will result in a query to the LDB Webservice, and therefore an HTTP request to an external service. Your application will need to handle caching and failure modes itself.
 * There is an overhead involved when creating a `DarwinLdbSession`, as the WSDL must be retrieved and parsed.
 
+Contributions
+-------------
+
+Pull requests and issue reports are welcome. A requirements file is provided to help you set up code checking and formatting tools.
+
+To set this up run::
+    pip install -r devenv-requirements.txt
+    pre-commit install
+
+This will enable a pre-commit hook to run linting checks with `flake8`
+
 Credits
 -------
 
