@@ -15,7 +15,7 @@ setup(
         'suds-jurko'
     ],
     setup_requires=[
-        'flake8==2.5.2'
+        'flake8==3.7.9'
     ],
     include_package_data=True,
     license='BSD License',
