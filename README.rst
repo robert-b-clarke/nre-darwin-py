@@ -98,12 +98,14 @@ Contributions
 Pull requests and issue reports are welcome. A requirements file is provided to help you set up code checking and formatting tools.
 
 To set this up run::
+
     pip install -r devenv-requirements.txt
     pre-commit install
 
 This will enable a pre-commit hook to run linting checks with `flake8` and format any changed files with `black`
 
 The test suite can be run via `setup.py`::
+
     python3 setup.py test
 
 Credits
