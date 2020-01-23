@@ -55,7 +55,34 @@ Retrieve more detailed information regarding a particular service::
     >>> [cp.location_name for cp in service.subsequent_calling_points]
     [Gorton, Fairfield, Guide Bridge, Hyde Central, Woodley, Romiley, Rose Hill Marple]
 
-The provided example.py script shows a simple departure board implementation for your reference
+Command Line Usage
+------------------
+
+A simple command line tool is provided as a reference implementation::
+
+    pip install nre-darwin-py
+    national-rail --help
+
+To use you will need to export your Darwin API KEY as an environment variable::
+    export DARWIN_WEBSERVICE_API_KEY=YOURKEY
+
+To view a departure board invoke the script with a single argument, the CRS code of the station::
+
+    national-rail MSN
+
+This will render the departure board in a tabular format, for example::
+
+    Platform  Destination            Scheduled    Due
+    ----------  ---------------------  -----------  -------
+             2  Manchester Piccadilly  13:05        On time
+             1  Huddersfield           13:30        On time
+             2  Manchester Piccadilly  14:05        On time
+             1  Huddersfield           14:30        On time
+
+
+Command line help is available to list all available options::
+
+    national-rail --help
 
 Practicalities
 --------------
@@ -75,4 +102,3 @@ TODO
 
 * Make departure and arrival times available as timezone-aware datetime objects
 * More detailed exception handling
-* More examples
