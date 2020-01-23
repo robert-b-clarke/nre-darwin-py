@@ -11,5 +11,5 @@ install:
 script:
   - flake8 nredarwin
   - flake8 tests
-  - coverage run --source=nredarwin/ setup.py test
+  - coverage run --source=nredarwin/ --omit=nredarwin/cli.py setup.py test
   - coverage report
