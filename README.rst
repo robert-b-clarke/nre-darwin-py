@@ -103,6 +103,9 @@ To set this up run::
 
 This will enable a pre-commit hook to run linting checks with `flake8` and format any changed files with `black`
 
+The test suite can be run via `setup.py`::
+    python3 setup.py test
+
 Credits
 -------
 
