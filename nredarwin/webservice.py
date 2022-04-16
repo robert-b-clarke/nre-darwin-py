@@ -409,7 +409,7 @@ class ServiceItem(ServiceDetailsBase):
         return self._location_formatter(self.origins)
 
     def _location_formatter(self, location_list):
-        return ", ".join([str(l) for l in location_list])
+        return ", ".join([str(loc) for loc in location_list])
 
     def __str__(self):
         return "Service %s" % (self.service_id)
@@ -668,7 +668,7 @@ class CallingPoint(SoapResponseBase):
 
 
 class CallingPointList(SoapResponseBase):
-    """ A list of calling points"""
+    """A list of calling points"""
 
     field_mapping = [
         ("service_type", "_serviceType"),

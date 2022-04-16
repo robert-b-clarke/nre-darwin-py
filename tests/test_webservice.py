@@ -7,7 +7,8 @@ import os
 class TestSoapClient(object):
     def __init__(self):
         self._client = Client(
-            "https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx", nosend=True,
+            "https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx",
+            nosend=True,
         )
 
     def mock_response_from_file(self, operation_a, operation_b, filename=None):
@@ -32,7 +33,9 @@ TEST_SOAP_CLIENT = TestSoapClient()
 class StationBoardTest(unittest.TestCase):
     def setUp(self):
         resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap", "GetDepartureBoard", filename="departure-board.xml",
+            "LDBServiceSoap",
+            "GetDepartureBoard",
+            filename="departure-board.xml",
         )
         self.board = nredarwin.webservice.StationBoard(resp)
 
@@ -83,7 +86,9 @@ http://nationalrail.co.uk/service_disruptions/88961.aspx">Latest Travel News.\
 class ServiceDetailsTest(unittest.TestCase):
     def setUp(self):
         resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap", "GetServiceDetails", filename="service-details.xml",
+            "LDBServiceSoap",
+            "GetServiceDetails",
+            filename="service-details.xml",
         )
         self.service_details = nredarwin.webservice.ServiceDetails(resp)
 
@@ -111,7 +116,8 @@ class ServiceDetailsTest(unittest.TestCase):
 
         self.assertEqual(len(self.service_details.previous_calling_point_lists), 1)
         self.assertEqual(
-            len(self.service_details.previous_calling_point_lists[0].calling_points), 5,
+            len(self.service_details.previous_calling_point_lists[0].calling_points),
+            5,
         )
         self.assertEqual(len(self.service_details.subsequent_calling_point_lists), 1)
         self.assertEqual(
@@ -137,9 +143,9 @@ class CallingPointsTest(unittest.TestCase):
             len(self.service_details_splits_after.subsequent_calling_points), 18
         )
 
-        calling_point_list = self.service_details_splits_after.previous_calling_point_lists[
-            0
-        ]
+        calling_point_list = (
+            self.service_details_splits_after.previous_calling_point_lists[0]
+        )
         self.assertEqual(calling_point_list.service_type, "train")
         self.assertEqual(calling_point_list.service_change_required, False)
         self.assertEqual(calling_point_list.association_is_cancelled, False)
@@ -149,10 +155,12 @@ class CallingPointsTest(unittest.TestCase):
             self.service_details_splits_after.previous_calling_point_lists
         )
         self.assertEqual(
-            len(previous_calling_point_lists), 1,
+            len(previous_calling_point_lists),
+            1,
         )
         self.assertEqual(
-            len(previous_calling_point_lists[0].calling_points), 5,
+            len(previous_calling_point_lists[0].calling_points),
+            5,
         )
 
     def test_subsequent_calling_points(self):
@@ -160,13 +168,16 @@ class CallingPointsTest(unittest.TestCase):
             self.service_details_splits_after.subsequent_calling_point_lists
         )
         self.assertEqual(
-            len(subsequent_calling_point_lists), 2,
+            len(subsequent_calling_point_lists),
+            2,
         )
         self.assertEqual(
-            len(subsequent_calling_point_lists[0].calling_points), 16,
+            len(subsequent_calling_point_lists[0].calling_points),
+            16,
         )
         self.assertEqual(
-            len(subsequent_calling_point_lists[1].calling_points), 2,
+            len(subsequent_calling_point_lists[1].calling_points),
+            2,
         )
 
 
