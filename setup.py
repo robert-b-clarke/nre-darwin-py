@@ -11,7 +11,10 @@ setup(
     name="nre-darwin-py",
     version="0.3.0",
     packages=["nredarwin"],
-    install_requires=["suds-jurko", "tabulate>=0.8.6",],
+    install_requires=[
+        "suds-jurko",
+        "tabulate>=0.8.6",
+    ],
     setup_requires=["flake8==3.7.9"],
     entry_points={"console_scripts": ["national-rail=nredarwin.cli:main"]},
     include_package_data=True,
