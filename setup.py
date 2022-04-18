@@ -9,10 +9,10 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name="nre-darwin-py",
-    version="0.3.0",
+    version="0.4.0",
     packages=["nredarwin"],
     install_requires=[
-        "suds-jurko",
+        "suds-py3>=1.4.5.0",
         "tabulate>=0.8.6",
     ],
     setup_requires=["flake8==3.7.9"],

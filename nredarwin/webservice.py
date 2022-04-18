@@ -1,5 +1,5 @@
 from suds.client import Client
-from suds.transport.http import HttpTransport
+import suds.transport.http
 
 from suds.sax.element import Element
 from suds import WebFault
@@ -15,7 +15,7 @@ DARWIN_WEBSERVICE_NAMESPACE = (
 )
 
 
-class WellBehavedHttpTransport(HttpTransport):
+class WellBehavedHttpTransport(suds.transport.http.HttpTransport):
     """
     Suds HttpTransport which properly obeys the ``*_proxy`` environment
     variables.

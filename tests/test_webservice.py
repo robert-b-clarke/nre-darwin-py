@@ -8,7 +8,6 @@ class TestSoapClient(object):
     def __init__(self):
         self._client = Client(
             "https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx",
-            nosend=True,
         )
 
     def mock_response_from_file(self, operation_a, operation_b, filename=None):
@@ -18,13 +17,9 @@ class TestSoapClient(object):
         xml_content = fh.read()
         fh.close()
         xml_content = xml_content.encode("utf-8")
-        # this is a bit odd have to get the request context which demands a
-        # message and a reply, then parse the reply using the request context
-        # the message doesn't seem to do anything - so throw that away
-        request_context = self._client.service[operation_a][operation_b](
-            __inject={"msg": xml_content, "reply": xml_content}
+        return self._client.service[operation_a][operation_b](
+            __inject={"reply": xml_content}
         )
-        return request_context.process_reply(xml_content)
 
 
 TEST_SOAP_CLIENT = TestSoapClient()
