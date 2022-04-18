@@ -14,10 +14,10 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
           pip-dependency-file: devenv-requirements.txt 
-      - lint:
+      - run:
           name: Lint
           command: flake8 nredarwin && flake8 tests
-      - test:
+      - run:
           name: Run tests
           command: coverage run --source=nredarwin/ --omit=nredarwin/cli.py -m unittest discover
  
