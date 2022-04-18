@@ -12,7 +12,7 @@ setup(
     version="0.3.0",
     packages=["nredarwin"],
     install_requires=[
-        "suds-jurko",
+        "suds-py3>=1.4.5.0",
         "tabulate>=0.8.6",
     ],
     setup_requires=["flake8==3.7.9"],
