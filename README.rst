@@ -2,8 +2,8 @@
 nre-darwin-py
 =============
 
-.. image:: https://travis-ci.org/robert-b-clarke/nre-darwin-py.svg?branch=master
-    :target: https://travis-ci.org/robert-b-clarke/nre-darwin-py
+.. image:: https://circleci.com/gh/robert-b-clarke/nre-darwin-py.svg?style=svg
+    :target: https://circleci.com/gh/robert-b-clarke/nre-darwin-py
 
 .. image:: https://pypip.in/v/nre-darwin-py/badge.png
     :target: https://pypi.python.org/pypi//nre-darwin-py/
