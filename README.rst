@@ -38,7 +38,7 @@ Basic usage
 Initiate a session::
 
     >>> from nredarwin.webservice import DarwinLdbSession
-    >>> darwin_sesh = DarwinLdbSession(wsdl="https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx", api_key="YOUR_KEY")
+    >>> darwin_sesh = DarwinLdbSession(wsdl="https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx?ver=2010-11-01", api_key="YOUR_KEY")
 
 Retrieve the departure board for Manchester Piccadilly station::
 
