@@ -65,13 +65,13 @@ class DarwinLdbSession(object):
         return self._soap_client.service["LDBServiceSoap"]
 
     def get_station_board(
-        self,
-        crs,
-        rows=17,
-        include_departures=True,
-        include_arrivals=False,
-        destination_crs=None,
-        origin_crs=None,
+            self,
+            crs,
+            rows=17,
+            include_departures=True,
+            include_arrivals=False,
+            destination_crs=None,
+            origin_crs=None,
     ):
         """
         Query the darwin webservice to obtain a board for a particular station
@@ -119,6 +119,107 @@ destination_crs and origin_crs, using only destination_crs"
         except WebFault:
             raise WebServiceError
         return StationBoard(soap_response)
+
+    def get_fastest_departures(
+            self,
+            crs,
+            filterList,
+            withDetails=False,
+            timeOffset=0,
+            timeWindow=120
+    ):
+        """
+        Query the darwin webservice to obtain a board of the next fastest departures to travel from
+        particular station (crs) and arrive at any of 'filterList'
+        Returns a DepartureBoard or DepartureBoardWithDetails instance
+
+        Positional arguments;
+        crs -- the three letter CRS code of a UK station
+        filterList -- a list of three letter CRS codes for destination stations. At least one must be provided, with a maximum of 10
+
+        Keyword arguments:
+        withDetails -- Should the request also return details for all intermediate stops on the route
+        timeOffset -- How many minutes in the past (or future) from which to show the next fastest departure - defaults to 0 (now)
+        timeWindow -- How many minutes in which to look for a departure from the 'crs' station to one of the stations listed in 'filterList' - defaults to 120
+        """
+        if withDetails:
+            query_type = "GetFastestDeparturesWithDetails"
+            board_factory = DepartureBoardWithDetails
+        else:
+            query_type = "GetFastestDepartures"
+            board_factory = DepartureBoard
+
+        return self._get_next_or_fastest_departures(query_type,
+                                                    board_factory,
+                                                    crs,
+                                                    filterList,
+                                                    timeOffset,
+                                                    timeWindow)
+
+    def get_next_departures(
+            self,
+            crs,
+            filterList,
+            withDetails=False,
+            timeOffset=0,
+            timeWindow=120
+    ):
+        """
+        Query the darwin webservice to obtain a board of the next departures to travel from
+        particular station (crs) and arrive at any of 'filterList'
+        Returns a DepartureBoard or DepartureBoardWithDetails instance
+
+        Positional arguments;
+        crs -- the three letter CRS code of a UK station
+        filterList -- a list of three letter CRS codes for destination stations. At least one must be provided, with a maximum of 10
+
+        Keyword arguments:
+        withDetails -- Should the request also return details for all intermediate stops on the route
+        timeOffset -- How many minutes in the past (or future) from which to show the next fastest departure - defaults to 0 (now)
+        timeWindow -- How many minutes in which to look for a departure from the 'crs' station to one of the stations listed in 'filterList' - defaults to 120
+        """
+        if withDetails:
+            query_type = "GetNextDeparturesWithDetails"
+            board_factory = DepartureBoardWithDetails
+        else:
+            query_type = "GetNextDepartures"
+            board_factory = DepartureBoard
+
+        return self._get_next_or_fastest_departures(query_type,
+                                                    board_factory,
+                                                    crs,
+                                                    filterList,
+                                                    timeOffset,
+                                                    timeWindow)
+
+    def _get_next_or_fastest_departures(
+            self,
+            query_type,
+            board_factory,
+            crs,
+            filterList,
+            timeOffset=0,
+            timeWindow=120
+    ):
+
+        if len(filterList) == 0 or len(filterList) > 10:
+            raise ValueError("filterList must be provided with between 1 and 10 CRS strings")
+
+        # Convert the list of strings into a SOAP-compatible array of CRS'
+        soap_filter_list = self._soap_client.factory.create("filterList")
+        soap_filter_list["crs"] = filterList
+
+        q = partial(self._base_query()[query_type], crs=crs, filterList=soap_filter_list, timeOffset=timeOffset,
+                    timeWindow=timeWindow)
+
+        try:
+            soap_response = q()
+            print("=========")
+            print(self._soap_client.last_received())
+            print("=========")
+            return board_factory(soap_response)
+        except WebFault:
+            raise WebServiceError
 
     def get_service_details(self, service_id):
         """
@@ -177,7 +278,7 @@ class StationBoard(SoapResponseBase):
             setattr(self, "_" + dest_key, [ServiceItem(s) for s in service_rows])
         # populate nrcc_messages
         if hasattr(soap_response, "nrccMessages") and hasattr(
-            soap_response.nrccMessages, "message"
+                soap_response.nrccMessages, "message"
         ):
             # TODO - would be nice to strip HTML from these, especially as
             # it's not compliant with modern standards
@@ -253,6 +354,7 @@ class ServiceDetailsBase(SoapResponseBase):
         ("platform", "platform"),
         ("operator_name", "operator"),
         ("operator_code", "operatorCode"),
+        ("length", "length"),
     ]
 
     @property
@@ -336,6 +438,13 @@ class ServiceDetailsBase(SoapResponseBase):
         """
         return self._operator_code
 
+    @property
+    def length(self):
+        """
+        The number of carriages that this service is made of
+        """
+        return self._length
+
     # TODO -Adhoc alerts, datetime inflators - if possible
 
 
@@ -413,6 +522,39 @@ class ServiceItem(ServiceDetailsBase):
 
     def __str__(self):
         return "Service %s" % (self.service_id)
+
+
+class ServiceItemWithDetails(ServiceItem):
+
+    def __init__(self, soap_data, *args, **kwargs):
+        super(ServiceItemWithDetails, self).__init__(soap_data, *args, **kwargs)
+        self._subsequent_calling_point_lists = self._calling_point_lists(
+            soap_data, "subsequentCallingPoints"
+        )
+
+    def _calling_point_lists(self, soap_data, src_key):
+        try:
+            calling_points = getattr(getattr(soap_data, src_key), "callingPointList")
+        except AttributeError:
+            return []
+        lists = []
+        for sublist in calling_points:
+            lists.append(CallingPointList(sublist))
+        return lists
+
+    @property
+    def subsequent_calling_point_lists(self):
+        """
+        A list of CallingPointLists.
+
+        The first CallingPointList is all the calling points of the through
+        train after here until its destination, with any additional
+        CallingPointLists (if they are present) containing the calling points
+        of associated trains which split from the through train from the
+        calling point at which they split off from the through train until
+        their respective destinations.
+        """
+        return self._subsequent_calling_point_lists
 
 
 class ServiceLocation(SoapResponseBase):
@@ -623,6 +765,7 @@ class CallingPoint(SoapResponseBase):
         ("et", "et"),
         ("at", "at"),
         ("st", "st"),
+        ("length", "length"),
     ]
 
     @property
@@ -665,6 +808,15 @@ class CallingPoint(SoapResponseBase):
         Human readable string, no guaranteed format
         """
         return self._st
+
+    @property
+    def length(self):
+        """
+        Length
+
+        The number of carriages that this service is made of
+        """
+        return self._length
 
 
 class CallingPointList(SoapResponseBase):
@@ -727,6 +879,72 @@ class CallingPointList(SoapResponseBase):
         A boolean indicating whether this association is cancelled.
         """
         return self._association_is_cancelled
+
+
+class DepartureBoard(StationBoard):
+    def __init__(self, soap_data, *args, **kwargs):
+        super(DepartureBoard, self).__init__(soap_data, *args, **kwargs)
+        self._departures = self._departure_destination_list(soap_data, "departures")
+
+    def _departure_destination_list(self, soap_data, src_key):
+        try:
+            departures = getattr(soap_data, src_key)[0]
+        except AttributeError:
+            return []
+        departures_list = []
+        for departure in departures:
+            departures_list.append(self._departure_item_factory(departure))
+        return departures_list
+
+    def _departure_item_factory(self, departure):
+        return DepartureItem(departure)
+
+    @property
+    def departures(self):
+        """
+        List of DepartureItem objects
+
+        A list of the fastest departures that leave station 'crs' and arrive at stations 'filterList'
+        """
+        return self._departures
+
+
+class DepartureBoardWithDetails(DepartureBoard):
+
+    def _departure_item_factory(self, departure):
+        return DepartureItemWithDetails(departure)
+
+
+class DepartureItem(SoapResponseBase):
+    field_mapping = [
+        ("crs", "_crs"),
+        ("service", "service"),
+    ]
+
+    @property
+    def crs(self):
+        """
+        The CRS code for the station.
+        """
+        return self._crs
+
+    @property
+    def service(self):
+        """
+        Details about the service operating this departure
+        """
+        return ServiceItem(self._service)
+
+
+class DepartureItemWithDetails(DepartureItem):
+
+    @property
+    def service(self):
+        """
+        Details about the service operating this departure
+        contains additional information about the subsequent calling points
+        """
+        return ServiceItemWithDetails(self._service)
 
 
 class WebServiceError(Exception):
