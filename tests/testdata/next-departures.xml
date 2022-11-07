@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope>
+   <soap:Body>
+      <GetNextDeparturesResponse xmlns="http://thalesgroup.com/RTTI/2021-11-01/ldb/">
+         <DeparturesBoard>
+            <lt4:generatedAt>2022-11-07T22:11:25.9678859+00:00</lt4:generatedAt>
+            <lt4:locationName>East Croydon</lt4:locationName>
+            <lt4:crs>ECR</lt4:crs>
+            <lt4:platformAvailable>true</lt4:platformAvailable>
+            <lt8:departures>
+               <lt8:destination crs="CLJ">
+                  <lt8:service>
+                     <lt4:sta>22:15</lt4:sta>
+                     <lt4:eta>On time</lt4:eta>
+                     <lt4:std>22:15</lt4:std>
+                     <lt4:etd>On time</lt4:etd>
+                     <lt4:platform>4</lt4:platform>
+                     <lt4:operator>Southern</lt4:operator>
+                     <lt4:operatorCode>SN</lt4:operatorCode>
+                     <lt4:serviceType>train</lt4:serviceType>
+                     <lt4:length>12</lt4:length>
+                     <lt4:serviceID>AjQqemx5vaZC87JCOBdU7A==</lt4:serviceID>
+                     <lt5:rsid>SN327700</lt5:rsid>
+                     <lt5:origin>
+                        <lt4:location>
+                           <lt4:locationName>East Grinstead</lt4:locationName>
+                           <lt4:crs>EGR</lt4:crs>
+                        </lt4:location>
+                     </lt5:origin>
+                     <lt5:destination>
+                        <lt4:location>
+                           <lt4:locationName>London Victoria</lt4:locationName>
+                           <lt4:crs>VIC</lt4:crs>
+                        </lt4:location>
+                     </lt5:destination>
+                  </lt8:service>
+               </lt8:destination>
+               <lt8:destination crs="LBG">
+                  <lt8:service>
+                     <lt4:sta>22:19</lt4:sta>
+                     <lt4:eta>22:26</lt4:eta>
+                     <lt4:std>22:21</lt4:std>
+                     <lt4:etd>22:27</lt4:etd>
+                     <lt4:platform>2</lt4:platform>
+                     <lt4:operator>Thameslink</lt4:operator>
+                     <lt4:operatorCode>TL</lt4:operatorCode>
+                     <lt4:serviceType>train</lt4:serviceType>
+                     <lt4:serviceID>EFpoyguzo/xLlJw80uW6eA==</lt4:serviceID>
+                     <lt5:origin>
+                        <lt4:location>
+                           <lt4:locationName>Brighton</lt4:locationName>
+                           <lt4:crs>BTN</lt4:crs>
+                        </lt4:location>
+                     </lt5:origin>
+                     <lt5:destination>
+                        <lt4:location>
+                           <lt4:locationName>London Bridge</lt4:locationName>
+                           <lt4:crs>LBG</lt4:crs>
+                        </lt4:location>
+                     </lt5:destination>
+                  </lt8:service>
+               </lt8:destination>
+            </lt8:departures>
+         </DeparturesBoard>
+      </GetNextDeparturesResponse>
+      <DeparturesBoard>
+         <lt4:generatedAt>2022-11-07T22:11:25.9678859+00:00</lt4:generatedAt>
+         <lt4:locationName>East Croydon</lt4:locationName>
+         <lt4:crs>ECR</lt4:crs>
+         <lt4:platformAvailable>true</lt4:platformAvailable>
+         <lt8:departures>
+            <lt8:destination crs="CLJ">
+               <lt8:service>
+                  <lt4:sta>22:15</lt4:sta>
+                  <lt4:eta>On time</lt4:eta>
+                  <lt4:std>22:15</lt4:std>
+                  <lt4:etd>On time</lt4:etd>
+                  <lt4:platform>4</lt4:platform>
+                  <lt4:operator>Southern</lt4:operator>
+                  <lt4:operatorCode>SN</lt4:operatorCode>
+                  <lt4:serviceType>train</lt4:serviceType>
+                  <lt4:length>12</lt4:length>
+                  <lt4:serviceID>AjQqemx5vaZC87JCOBdU7A==</lt4:serviceID>
+                  <lt5:rsid>SN327700</lt5:rsid>
+                  <lt5:origin>
+                     <lt4:location>
+                        <lt4:locationName>East Grinstead</lt4:locationName>
+                        <lt4:crs>EGR</lt4:crs>
+                     </lt4:location>
+                  </lt5:origin>
+                  <lt5:destination>
+                     <lt4:location>
+                        <lt4:locationName>London Victoria</lt4:locationName>
+                        <lt4:crs>VIC</lt4:crs>
+                     </lt4:location>
+                  </lt5:destination>
+               </lt8:service>
+            </lt8:destination>
+            <lt8:destination crs="LBG">
+               <lt8:service>
+                  <lt4:sta>22:19</lt4:sta>
+                  <lt4:eta>22:26</lt4:eta>
+                  <lt4:std>22:21</lt4:std>
+                  <lt4:etd>22:27</lt4:etd>
+                  <lt4:platform>2</lt4:platform>
+                  <lt4:operator>Thameslink</lt4:operator>
+                  <lt4:operatorCode>TL</lt4:operatorCode>
+                  <lt4:serviceType>train</lt4:serviceType>
+                  <lt4:serviceID>EFpoyguzo/xLlJw80uW6eA==</lt4:serviceID>
+                  <lt5:origin>
+                     <lt4:location>
+                        <lt4:locationName>Brighton</lt4:locationName>
+                        <lt4:crs>BTN</lt4:crs>
+                     </lt4:location>
+                  </lt5:origin>
+                  <lt5:destination>
+                     <lt4:location>
+                        <lt4:locationName>London Bridge</lt4:locationName>
+                        <lt4:crs>LBG</lt4:crs>
+                     </lt4:location>
+                  </lt5:destination>
+               </lt8:service>
+            </lt8:destination>
+         </lt8:departures>
+      </DeparturesBoard>
+      <lt4:generatedAt>2022-11-07T22:11:25.9678859+00:00</lt4:generatedAt>
+      <lt4:locationName>East Croydon</lt4:locationName>
+      <lt4:crs>ECR</lt4:crs>
+      <lt4:platformAvailable>true</lt4:platformAvailable>
+      <lt8:departures>
+         <lt8:destination crs="CLJ">
+            <lt8:service>
+               <lt4:sta>22:15</lt4:sta>
+               <lt4:eta>On time</lt4:eta>
+               <lt4:std>22:15</lt4:std>
+               <lt4:etd>On time</lt4:etd>
+               <lt4:platform>4</lt4:platform>
+               <lt4:operator>Southern</lt4:operator>
+               <lt4:operatorCode>SN</lt4:operatorCode>
+               <lt4:serviceType>train</lt4:serviceType>
+               <lt4:length>12</lt4:length>
+               <lt4:serviceID>AjQqemx5vaZC87JCOBdU7A==</lt4:serviceID>
+               <lt5:rsid>SN327700</lt5:rsid>
+               <lt5:origin>
+                  <lt4:location>
+                     <lt4:locationName>East Grinstead</lt4:locationName>
+                     <lt4:crs>EGR</lt4:crs>
+                  </lt4:location>
+               </lt5:origin>
+               <lt5:destination>
+                  <lt4:location>
+                     <lt4:locationName>London Victoria</lt4:locationName>
+                     <lt4:crs>VIC</lt4:crs>
+                  </lt4:location>
+               </lt5:destination>
+            </lt8:service>
+         </lt8:destination>
+         <lt8:destination crs="LBG">
+            <lt8:service>
+               <lt4:sta>22:19</lt4:sta>
+               <lt4:eta>22:26</lt4:eta>
+               <lt4:std>22:21</lt4:std>
+               <lt4:etd>22:27</lt4:etd>
+               <lt4:platform>2</lt4:platform>
+               <lt4:operator>Thameslink</lt4:operator>
+               <lt4:operatorCode>TL</lt4:operatorCode>
+               <lt4:serviceType>train</lt4:serviceType>
+               <lt4:serviceID>EFpoyguzo/xLlJw80uW6eA==</lt4:serviceID>
+               <lt5:origin>
+                  <lt4:location>
+                     <lt4:locationName>Brighton</lt4:locationName>
+                     <lt4:crs>BTN</lt4:crs>
+                  </lt4:location>
+               </lt5:origin>
+               <lt5:destination>
+                  <lt4:location>
+                     <lt4:locationName>London Bridge</lt4:locationName>
+                     <lt4:crs>LBG</lt4:crs>
+                  </lt4:location>
+               </lt5:destination>
+            </lt8:service>
+         </lt8:destination>
+      </lt8:departures>
+      <lt8:destination crs="CLJ">
+         <lt8:service>
+            <lt4:sta>22:15</lt4:sta>
+            <lt4:eta>On time</lt4:eta>
+            <lt4:std>22:15</lt4:std>
+            <lt4:etd>On time</lt4:etd>
+            <lt4:platform>4</lt4:platform>
+            <lt4:operator>Southern</lt4:operator>
+            <lt4:operatorCode>SN</lt4:operatorCode>
+            <lt4:serviceType>train</lt4:serviceType>
+            <lt4:length>12</lt4:length>
+            <lt4:serviceID>AjQqemx5vaZC87JCOBdU7A==</lt4:serviceID>
+            <lt5:rsid>SN327700</lt5:rsid>
+            <lt5:origin>
+               <lt4:location>
+                  <lt4:locationName>East Grinstead</lt4:locationName>
+                  <lt4:crs>EGR</lt4:crs>
+               </lt4:location>
+            </lt5:origin>
+            <lt5:destination>
+               <lt4:location>
+                  <lt4:locationName>London Victoria</lt4:locationName>
+                  <lt4:crs>VIC</lt4:crs>
+               </lt4:location>
+            </lt5:destination>
+         </lt8:service>
+      </lt8:destination>
+      <lt8:service>
+         <lt4:sta>22:15</lt4:sta>
+         <lt4:eta>On time</lt4:eta>
+         <lt4:std>22:15</lt4:std>
+         <lt4:etd>On time</lt4:etd>
+         <lt4:platform>4</lt4:platform>
+         <lt4:operator>Southern</lt4:operator>
+         <lt4:operatorCode>SN</lt4:operatorCode>
+         <lt4:serviceType>train</lt4:serviceType>
+         <lt4:length>12</lt4:length>
+         <lt4:serviceID>AjQqemx5vaZC87JCOBdU7A==</lt4:serviceID>
+         <lt5:rsid>SN327700</lt5:rsid>
+         <lt5:origin>
+            <lt4:location>
+               <lt4:locationName>East Grinstead</lt4:locationName>
+               <lt4:crs>EGR</lt4:crs>
+            </lt4:location>
+         </lt5:origin>
+         <lt5:destination>
+            <lt4:location>
+               <lt4:locationName>London Victoria</lt4:locationName>
+               <lt4:crs>VIC</lt4:crs>
+            </lt4:location>
+         </lt5:destination>
+      </lt8:service>
+      <lt4:sta>22:15</lt4:sta>
+      <lt4:eta>On time</lt4:eta>
+      <lt4:std>22:15</lt4:std>
+      <lt4:etd>On time</lt4:etd>
+      <lt4:platform>4</lt4:platform>
+      <lt4:operator>Southern</lt4:operator>
+      <lt4:operatorCode>SN</lt4:operatorCode>
+      <lt4:serviceType>train</lt4:serviceType>
+      <lt4:length>12</lt4:length>
+      <lt4:serviceID>AjQqemx5vaZC87JCOBdU7A==</lt4:serviceID>
+      <lt5:rsid>SN327700</lt5:rsid>
+      <lt5:origin>
+         <lt4:location>
+            <lt4:locationName>East Grinstead</lt4:locationName>
+            <lt4:crs>EGR</lt4:crs>
+         </lt4:location>
+      </lt5:origin>
+      <lt4:location>
+         <lt4:locationName>East Grinstead</lt4:locationName>
+         <lt4:crs>EGR</lt4:crs>
+      </lt4:location>
+      <lt4:locationName>East Grinstead</lt4:locationName>
+      <lt4:crs>EGR</lt4:crs>
+      <lt5:destination>
+         <lt4:location>
+            <lt4:locationName>London Victoria</lt4:locationName>
+            <lt4:crs>VIC</lt4:crs>
+         </lt4:location>
+      </lt5:destination>
+      <lt4:location>
+         <lt4:locationName>London Victoria</lt4:locationName>
+         <lt4:crs>VIC</lt4:crs>
+      </lt4:location>
+      <lt4:locationName>London Victoria</lt4:locationName>
+      <lt4:crs>VIC</lt4:crs>
+      <lt8:destination crs="LBG">
+         <lt8:service>
+            <lt4:sta>22:19</lt4:sta>
+            <lt4:eta>22:26</lt4:eta>
+            <lt4:std>22:21</lt4:std>
+            <lt4:etd>22:27</lt4:etd>
+            <lt4:platform>2</lt4:platform>
+            <lt4:operator>Thameslink</lt4:operator>
+            <lt4:operatorCode>TL</lt4:operatorCode>
+            <lt4:serviceType>train</lt4:serviceType>
+            <lt4:serviceID>EFpoyguzo/xLlJw80uW6eA==</lt4:serviceID>
+            <lt5:origin>
+               <lt4:location>
+                  <lt4:locationName>Brighton</lt4:locationName>
+                  <lt4:crs>BTN</lt4:crs>
+               </lt4:location>
+            </lt5:origin>
+            <lt5:destination>
+               <lt4:location>
+                  <lt4:locationName>London Bridge</lt4:locationName>
+                  <lt4:crs>LBG</lt4:crs>
+               </lt4:location>
+            </lt5:destination>
+         </lt8:service>
+      </lt8:destination>
+      <lt8:service>
+         <lt4:sta>22:19</lt4:sta>
+         <lt4:eta>22:26</lt4:eta>
+         <lt4:std>22:21</lt4:std>
+         <lt4:etd>22:27</lt4:etd>
+         <lt4:platform>2</lt4:platform>
+         <lt4:operator>Thameslink</lt4:operator>
+         <lt4:operatorCode>TL</lt4:operatorCode>
+         <lt4:serviceType>train</lt4:serviceType>
+         <lt4:serviceID>EFpoyguzo/xLlJw80uW6eA==</lt4:serviceID>
+         <lt5:origin>
+            <lt4:location>
+               <lt4:locationName>Brighton</lt4:locationName>
+               <lt4:crs>BTN</lt4:crs>
+            </lt4:location>
+         </lt5:origin>
+         <lt5:destination>
+            <lt4:location>
+               <lt4:locationName>London Bridge</lt4:locationName>
+               <lt4:crs>LBG</lt4:crs>
+            </lt4:location>
+         </lt5:destination>
+      </lt8:service>
+      <lt4:sta>22:19</lt4:sta>
+      <lt4:eta>22:26</lt4:eta>
+      <lt4:std>22:21</lt4:std>
+      <lt4:etd>22:27</lt4:etd>
+      <lt4:platform>2</lt4:platform>
+      <lt4:operator>Thameslink</lt4:operator>
+      <lt4:operatorCode>TL</lt4:operatorCode>
+      <lt4:serviceType>train</lt4:serviceType>
+      <lt4:serviceID>EFpoyguzo/xLlJw80uW6eA==</lt4:serviceID>
+      <lt5:origin>
+         <lt4:location>
+            <lt4:locationName>Brighton</lt4:locationName>
+            <lt4:crs>BTN</lt4:crs>
+         </lt4:location>
+      </lt5:origin>
+      <lt4:location>
+         <lt4:locationName>Brighton</lt4:locationName>
+         <lt4:crs>BTN</lt4:crs>
+      </lt4:location>
+      <lt4:locationName>Brighton</lt4:locationName>
+      <lt4:crs>BTN</lt4:crs>
+      <lt5:destination>
+         <lt4:location>
+            <lt4:locationName>London Bridge</lt4:locationName>
+            <lt4:crs>LBG</lt4:crs>
+         </lt4:location>
+      </lt5:destination>
+      <lt4:location>
+         <lt4:locationName>London Bridge</lt4:locationName>
+         <lt4:crs>LBG</lt4:crs>
+      </lt4:location>
+      <lt4:locationName>London Bridge</lt4:locationName>
+      <lt4:crs>LBG</lt4:crs>
+   </soap:Body>
+</soap:Envelope>

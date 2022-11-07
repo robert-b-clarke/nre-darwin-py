@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope>
+   <soap:Body>
+      <GetFastestDeparturesWithDetailsResponse xmlns="http://thalesgroup.com/RTTI/2021-11-01/ldb/">
+         <DeparturesBoard>
+            <lt4:generatedAt>2022-11-07T20:20:22.44662+00:00</lt4:generatedAt>
+            <lt4:locationName>East Croydon</lt4:locationName>
+            <lt4:crs>ECR</lt4:crs>
+            <lt4:platformAvailable>true</lt4:platformAvailable>
+            <lt8:departures>
+               <lt8:destination crs="CLJ">
+                  <lt8:service>
+                     <lt4:sta>20:15</lt4:sta>
+                     <lt4:eta>20:18</lt4:eta>
+                     <lt4:std>20:15</lt4:std>
+                     <lt4:etd>20:18</lt4:etd>
+                     <lt4:platform>4</lt4:platform>
+                     <lt4:operator>Southern</lt4:operator>
+                     <lt4:operatorCode>SN</lt4:operatorCode>
+                     <lt4:serviceType>train</lt4:serviceType>
+                     <lt4:length>10</lt4:length>
+                     <lt4:serviceID>uocFiJsoTSWa3VywrCtLrg==</lt4:serviceID>
+                     <lt5:rsid>SN327400</lt5:rsid>
+                     <lt5:origin>
+                        <lt4:location>
+                           <lt4:locationName>East Grinstead</lt4:locationName>
+                           <lt4:crs>EGR</lt4:crs>
+                        </lt4:location>
+                     </lt5:origin>
+                     <lt5:destination>
+                        <lt4:location>
+                           <lt4:locationName>London Victoria</lt4:locationName>
+                           <lt4:crs>VIC</lt4:crs>
+                        </lt4:location>
+                     </lt5:destination>
+                     <lt8:subsequentCallingPoints>
+                        <lt8:callingPointList>
+                           <lt8:callingPoint>
+                              <lt8:locationName>Clapham Junction</lt8:locationName>
+                              <lt8:crs>CLJ</lt8:crs>
+                              <lt8:st>20:25</lt8:st>
+                              <lt8:et>20:29</lt8:et>
+                              <lt8:length>10</lt8:length>
+                           </lt8:callingPoint>
+                           <lt8:callingPoint>
+                              <lt8:locationName>London Victoria</lt8:locationName>
+                              <lt8:crs>VIC</lt8:crs>
+                              <lt8:st>20:32</lt8:st>
+                              <lt8:et>20:36</lt8:et>
+                              <lt8:length>10</lt8:length>
+                           </lt8:callingPoint>
+                        </lt8:callingPointList>
+                     </lt8:subsequentCallingPoints>
+                  </lt8:service>
+               </lt8:destination>
+               <lt8:destination crs="LBG">
+                  <lt8:service>
+                     <lt4:sta>20:19</lt4:sta>
+                     <lt4:eta>20:24</lt4:eta>
+                     <lt4:std>20:21</lt4:std>
+                     <lt4:etd>20:25</lt4:etd>
+                     <lt4:platform>2</lt4:platform>
+                     <lt4:operator>Thameslink</lt4:operator>
+                     <lt4:operatorCode>TL</lt4:operatorCode>
+                     <lt4:serviceType>train</lt4:serviceType>
+                     <lt4:serviceID>d9bFpyZflsSrWq5MNjdUwg==</lt4:serviceID>
+                     <lt5:origin>
+                        <lt4:location>
+                           <lt4:locationName>Brighton</lt4:locationName>
+                           <lt4:crs>BTN</lt4:crs>
+                        </lt4:location>
+                     </lt5:origin>
+                     <lt5:destination>
+                        <lt4:location>
+                           <lt4:locationName>London Bridge</lt4:locationName>
+                           <lt4:crs>LBG</lt4:crs>
+                        </lt4:location>
+                     </lt5:destination>
+                     <lt8:subsequentCallingPoints>
+                        <lt8:callingPointList>
+                           <lt8:callingPoint>
+                              <lt8:locationName>London Bridge</lt8:locationName>
+                              <lt8:crs>LBG</lt8:crs>
+                              <lt8:st>20:39</lt8:st>
+                              <lt8:et>20:42</lt8:et>
+                           </lt8:callingPoint>
+                        </lt8:callingPointList>
+                     </lt8:subsequentCallingPoints>
+                  </lt8:service>
+               </lt8:destination>
+            </lt8:departures>
+         </DeparturesBoard>
+      </GetFastestDeparturesWithDetailsResponse>
+      <DeparturesBoard>
+         <lt4:generatedAt>2022-11-07T20:20:22.44662+00:00</lt4:generatedAt>
+         <lt4:locationName>East Croydon</lt4:locationName>
+         <lt4:crs>ECR</lt4:crs>
+         <lt4:platformAvailable>true</lt4:platformAvailable>
+         <lt8:departures>
+            <lt8:destination crs="CLJ">
+               <lt8:service>
+                  <lt4:sta>20:15</lt4:sta>
+                  <lt4:eta>20:18</lt4:eta>
+                  <lt4:std>20:15</lt4:std>
+                  <lt4:etd>20:20</lt4:etd>
+                  <lt4:platform>4</lt4:platform>
+                  <lt4:operator>Southern</lt4:operator>
+                  <lt4:operatorCode>SN</lt4:operatorCode>
+                  <lt4:serviceType>train</lt4:serviceType>
+                  <lt4:length>10</lt4:length>
+                  <lt4:serviceID>uocFiJsoTSWa3VywrCtLrg==</lt4:serviceID>
+                  <lt5:rsid>SN327400</lt5:rsid>
+                  <lt5:origin>
+                     <lt4:location>
+                        <lt4:locationName>East Grinstead</lt4:locationName>
+                        <lt4:crs>EGR</lt4:crs>
+                     </lt4:location>
+                  </lt5:origin>
+                  <lt5:destination>
+                     <lt4:location>
+                        <lt4:locationName>London Victoria</lt4:locationName>
+                        <lt4:crs>VIC</lt4:crs>
+                     </lt4:location>
+                  </lt5:destination>
+                  <lt8:subsequentCallingPoints>
+                     <lt8:callingPointList>
+                        <lt8:callingPoint>
+                           <lt8:locationName>Clapham Junction</lt8:locationName>
+                           <lt8:crs>CLJ</lt8:crs>
+                           <lt8:st>20:25</lt8:st>
+                           <lt8:et>20:29</lt8:et>
+                           <lt8:length>10</lt8:length>
+                        </lt8:callingPoint>
+                        <lt8:callingPoint>
+                           <lt8:locationName>London Victoria</lt8:locationName>
+                           <lt8:crs>VIC</lt8:crs>
+                           <lt8:st>20:32</lt8:st>
+                           <lt8:et>20:36</lt8:et>
+                           <lt8:length>10</lt8:length>
+                        </lt8:callingPoint>
+                     </lt8:callingPointList>
+                  </lt8:subsequentCallingPoints>
+               </lt8:service>
+            </lt8:destination>
+            <lt8:destination crs="LBG">
+               <lt8:service>
+                  <lt4:sta>20:19</lt4:sta>
+                  <lt4:eta>20:24</lt4:eta>
+                  <lt4:std>20:21</lt4:std>
+                  <lt4:etd>20:25</lt4:etd>
+                  <lt4:platform>2</lt4:platform>
+                  <lt4:operator>Thameslink</lt4:operator>
+                  <lt4:operatorCode>TL</lt4:operatorCode>
+                  <lt4:serviceType>train</lt4:serviceType>
+                  <lt4:serviceID>d9bFpyZflsSrWq5MNjdUwg==</lt4:serviceID>
+                  <lt5:origin>
+                     <lt4:location>
+                        <lt4:locationName>Brighton</lt4:locationName>
+                        <lt4:crs>BTN</lt4:crs>
+                     </lt4:location>
+                  </lt5:origin>
+                  <lt5:destination>
+                     <lt4:location>
+                        <lt4:locationName>London Bridge</lt4:locationName>
+                        <lt4:crs>LBG</lt4:crs>
+                     </lt4:location>
+                  </lt5:destination>
+                  <lt8:subsequentCallingPoints>
+                     <lt8:callingPointList>
+                        <lt8:callingPoint>
+                           <lt8:locationName>London Bridge</lt8:locationName>
+                           <lt8:crs>LBG</lt8:crs>
+                           <lt8:st>20:39</lt8:st>
+                           <lt8:et>20:42</lt8:et>
+                        </lt8:callingPoint>
+                     </lt8:callingPointList>
+                  </lt8:subsequentCallingPoints>
+               </lt8:service>
+            </lt8:destination>
+         </lt8:departures>
+      </DeparturesBoard>
+      <lt4:generatedAt>2022-11-07T20:20:22.44662+00:00</lt4:generatedAt>
+      <lt4:locationName>East Croydon</lt4:locationName>
+      <lt4:crs>ECR</lt4:crs>
+      <lt4:platformAvailable>true</lt4:platformAvailable>
+      <lt8:departures>
+         <lt8:destination crs="CLJ">
+            <lt8:service>
+               <lt4:sta>20:15</lt4:sta>
+               <lt4:eta>20:18</lt4:eta>
+               <lt4:std>20:15</lt4:std>
+               <lt4:etd>20:20</lt4:etd>
+               <lt4:platform>4</lt4:platform>
+               <lt4:operator>Southern</lt4:operator>
+               <lt4:operatorCode>SN</lt4:operatorCode>
+               <lt4:serviceType>train</lt4:serviceType>
+               <lt4:length>10</lt4:length>
+               <lt4:serviceID>uocFiJsoTSWa3VywrCtLrg==</lt4:serviceID>
+               <lt5:rsid>SN327400</lt5:rsid>
+               <lt5:origin>
+                  <lt4:location>
+                     <lt4:locationName>East Grinstead</lt4:locationName>
+                     <lt4:crs>EGR</lt4:crs>
+                  </lt4:location>
+               </lt5:origin>
+               <lt5:destination>
+                  <lt4:location>
+                     <lt4:locationName>London Victoria</lt4:locationName>
+                     <lt4:crs>VIC</lt4:crs>
+                  </lt4:location>
+               </lt5:destination>
+               <lt8:subsequentCallingPoints>
+                  <lt8:callingPointList>
+                     <lt8:callingPoint>
+                        <lt8:locationName>Clapham Junction</lt8:locationName>
+                        <lt8:crs>CLJ</lt8:crs>
+                        <lt8:st>20:25</lt8:st>
+                        <lt8:et>20:29</lt8:et>
+                        <lt8:length>10</lt8:length>
+                     </lt8:callingPoint>
+                     <lt8:callingPoint>
+                        <lt8:locationName>London Victoria</lt8:locationName>
+                        <lt8:crs>VIC</lt8:crs>
+                        <lt8:st>20:32</lt8:st>
+                        <lt8:et>20:36</lt8:et>
+                        <lt8:length>10</lt8:length>
+                     </lt8:callingPoint>
+                  </lt8:callingPointList>
+               </lt8:subsequentCallingPoints>
+            </lt8:service>
+         </lt8:destination>
+         <lt8:destination crs="LBG">
+            <lt8:service>
+               <lt4:sta>20:19</lt4:sta>
+               <lt4:eta>20:24</lt4:eta>
+               <lt4:std>20:21</lt4:std>
+               <lt4:etd>20:25</lt4:etd>
+               <lt4:platform>2</lt4:platform>
+               <lt4:operator>Thameslink</lt4:operator>
+               <lt4:operatorCode>TL</lt4:operatorCode>
+               <lt4:serviceType>train</lt4:serviceType>
+               <lt4:serviceID>d9bFpyZflsSrWq5MNjdUwg==</lt4:serviceID>
+               <lt5:origin>
+                  <lt4:location>
+                     <lt4:locationName>Brighton</lt4:locationName>
+                     <lt4:crs>BTN</lt4:crs>
+                  </lt4:location>
+               </lt5:origin>
+               <lt5:destination>
+                  <lt4:location>
+                     <lt4:locationName>London Bridge</lt4:locationName>
+                     <lt4:crs>LBG</lt4:crs>
+                  </lt4:location>
+               </lt5:destination>
+               <lt8:subsequentCallingPoints>
+                  <lt8:callingPointList>
+                     <lt8:callingPoint>
+                        <lt8:locationName>London Bridge</lt8:locationName>
+                        <lt8:crs>LBG</lt8:crs>
+                        <lt8:st>20:39</lt8:st>
+                        <lt8:et>20:42</lt8:et>
+                     </lt8:callingPoint>
+                  </lt8:callingPointList>
+               </lt8:subsequentCallingPoints>
+            </lt8:service>
+         </lt8:destination>
+      </lt8:departures>
+      <lt8:destination crs="CLJ">
+         <lt8:service>
+            <lt4:sta>20:15</lt4:sta>
+            <lt4:eta>20:18</lt4:eta>
+            <lt4:std>20:15</lt4:std>
+            <lt4:etd>20:20</lt4:etd>
+            <lt4:platform>4</lt4:platform>
+            <lt4:operator>Southern</lt4:operator>
+            <lt4:operatorCode>SN</lt4:operatorCode>
+            <lt4:serviceType>train</lt4:serviceType>
+            <lt4:length>10</lt4:length>
+            <lt4:serviceID>uocFiJsoTSWa3VywrCtLrg==</lt4:serviceID>
+            <lt5:rsid>SN327400</lt5:rsid>
+            <lt5:origin>
+               <lt4:location>
+                  <lt4:locationName>East Grinstead</lt4:locationName>
+                  <lt4:crs>EGR</lt4:crs>
+               </lt4:location>
+            </lt5:origin>
+            <lt5:destination>
+               <lt4:location>
+                  <lt4:locationName>London Victoria</lt4:locationName>
+                  <lt4:crs>VIC</lt4:crs>
+               </lt4:location>
+            </lt5:destination>
+            <lt8:subsequentCallingPoints>
+               <lt8:callingPointList>
+                  <lt8:callingPoint>
+                     <lt8:locationName>Clapham Junction</lt8:locationName>
+                     <lt8:crs>CLJ</lt8:crs>
+                     <lt8:st>20:25</lt8:st>
+                     <lt8:et>20:29</lt8:et>
+                     <lt8:length>10</lt8:length>
+                  </lt8:callingPoint>
+                  <lt8:callingPoint>
+                     <lt8:locationName>London Victoria</lt8:locationName>
+                     <lt8:crs>VIC</lt8:crs>
+                     <lt8:st>20:32</lt8:st>
+                     <lt8:et>20:36</lt8:et>
+                     <lt8:length>10</lt8:length>
+                  </lt8:callingPoint>
+               </lt8:callingPointList>
+            </lt8:subsequentCallingPoints>
+         </lt8:service>
+      </lt8:destination>
+      <lt8:service>
+         <lt4:sta>20:15</lt4:sta>
+         <lt4:eta>20:18</lt4:eta>
+         <lt4:std>20:15</lt4:std>
+         <lt4:etd>20:20</lt4:etd>
+         <lt4:platform>4</lt4:platform>
+         <lt4:operator>Southern</lt4:operator>
+         <lt4:operatorCode>SN</lt4:operatorCode>
+         <lt4:serviceType>train</lt4:serviceType>
+         <lt4:length>10</lt4:length>
+         <lt4:serviceID>uocFiJsoTSWa3VywrCtLrg==</lt4:serviceID>
+         <lt5:rsid>SN327400</lt5:rsid>
+         <lt5:origin>
+            <lt4:location>
+               <lt4:locationName>East Grinstead</lt4:locationName>
+               <lt4:crs>EGR</lt4:crs>
+            </lt4:location>
+         </lt5:origin>
+         <lt5:destination>
+            <lt4:location>
+               <lt4:locationName>London Victoria</lt4:locationName>
+               <lt4:crs>VIC</lt4:crs>
+            </lt4:location>
+         </lt5:destination>
+         <lt8:subsequentCallingPoints>
+            <lt8:callingPointList>
+               <lt8:callingPoint>
+                  <lt8:locationName>Clapham Junction</lt8:locationName>
+                  <lt8:crs>CLJ</lt8:crs>
+                  <lt8:st>20:25</lt8:st>
+                  <lt8:et>20:29</lt8:et>
+                  <lt8:length>10</lt8:length>
+               </lt8:callingPoint>
+               <lt8:callingPoint>
+                  <lt8:locationName>London Victoria</lt8:locationName>
+                  <lt8:crs>VIC</lt8:crs>
+                  <lt8:st>20:32</lt8:st>
+                  <lt8:et>20:36</lt8:et>
+                  <lt8:length>10</lt8:length>
+               </lt8:callingPoint>
+            </lt8:callingPointList>
+         </lt8:subsequentCallingPoints>
+      </lt8:service>
+      <lt4:sta>20:15</lt4:sta>
+      <lt4:eta>20:18</lt4:eta>
+      <lt4:std>20:15</lt4:std>
+      <lt4:etd>20:20</lt4:etd>
+      <lt4:platform>4</lt4:platform>
+      <lt4:operator>Southern</lt4:operator>
+      <lt4:operatorCode>SN</lt4:operatorCode>
+      <lt4:serviceType>train</lt4:serviceType>
+      <lt4:length>10</lt4:length>
+      <lt4:serviceID>uocFiJsoTSWa3VywrCtLrg==</lt4:serviceID>
+      <lt5:rsid>SN327400</lt5:rsid>
+      <lt5:origin>
+         <lt4:location>
+            <lt4:locationName>East Grinstead</lt4:locationName>
+            <lt4:crs>EGR</lt4:crs>
+         </lt4:location>
+      </lt5:origin>
+      <lt4:location>
+         <lt4:locationName>East Grinstead</lt4:locationName>
+         <lt4:crs>EGR</lt4:crs>
+      </lt4:location>
+      <lt4:locationName>East Grinstead</lt4:locationName>
+      <lt4:crs>EGR</lt4:crs>
+      <lt5:destination>
+         <lt4:location>
+            <lt4:locationName>London Victoria</lt4:locationName>
+            <lt4:crs>VIC</lt4:crs>
+         </lt4:location>
+      </lt5:destination>
+      <lt4:location>
+         <lt4:locationName>London Victoria</lt4:locationName>
+         <lt4:crs>VIC</lt4:crs>
+      </lt4:location>
+      <lt4:locationName>London Victoria</lt4:locationName>
+      <lt4:crs>VIC</lt4:crs>
+      <lt8:subsequentCallingPoints>
+         <lt8:callingPointList>
+            <lt8:callingPoint>
+               <lt8:locationName>Clapham Junction</lt8:locationName>
+               <lt8:crs>CLJ</lt8:crs>
+               <lt8:st>20:25</lt8:st>
+               <lt8:et>20:29</lt8:et>
+               <lt8:length>10</lt8:length>
+            </lt8:callingPoint>
+            <lt8:callingPoint>
+               <lt8:locationName>London Victoria</lt8:locationName>
+               <lt8:crs>VIC</lt8:crs>
+               <lt8:st>20:32</lt8:st>
+               <lt8:et>20:36</lt8:et>
+               <lt8:length>10</lt8:length>
+            </lt8:callingPoint>
+         </lt8:callingPointList>
+      </lt8:subsequentCallingPoints>
+      <lt8:callingPointList>
+         <lt8:callingPoint>
+            <lt8:locationName>Clapham Junction</lt8:locationName>
+            <lt8:crs>CLJ</lt8:crs>
+            <lt8:st>20:25</lt8:st>
+            <lt8:et>20:29</lt8:et>
+            <lt8:length>10</lt8:length>
+         </lt8:callingPoint>
+         <lt8:callingPoint>
+            <lt8:locationName>London Victoria</lt8:locationName>
+            <lt8:crs>VIC</lt8:crs>
+            <lt8:st>20:32</lt8:st>
+            <lt8:et>20:36</lt8:et>
+            <lt8:length>10</lt8:length>
+         </lt8:callingPoint>
+      </lt8:callingPointList>
+      <lt8:callingPoint>
+         <lt8:locationName>Clapham Junction</lt8:locationName>
+         <lt8:crs>CLJ</lt8:crs>
+         <lt8:st>20:25</lt8:st>
+         <lt8:et>20:29</lt8:et>
+         <lt8:length>10</lt8:length>
+      </lt8:callingPoint>
+      <lt8:locationName>Clapham Junction</lt8:locationName>
+      <lt8:crs>CLJ</lt8:crs>
+      <lt8:st>20:25</lt8:st>
+      <lt8:et>20:29</lt8:et>
+      <lt8:length>10</lt8:length>
+      <lt8:callingPoint>
+         <lt8:locationName>London Victoria</lt8:locationName>
+         <lt8:crs>VIC</lt8:crs>
+         <lt8:st>20:32</lt8:st>
+         <lt8:et>20:36</lt8:et>
+         <lt8:length>10</lt8:length>
+      </lt8:callingPoint>
+      <lt8:locationName>London Victoria</lt8:locationName>
+      <lt8:crs>VIC</lt8:crs>
+      <lt8:st>20:32</lt8:st>
+      <lt8:et>20:36</lt8:et>
+      <lt8:length>10</lt8:length>
+      <lt8:destination crs="LBG">
+         <lt8:service>
+            <lt4:sta>20:19</lt4:sta>
+            <lt4:eta>20:24</lt4:eta>
+            <lt4:std>20:21</lt4:std>
+            <lt4:etd>20:25</lt4:etd>
+            <lt4:platform>2</lt4:platform>
+            <lt4:operator>Thameslink</lt4:operator>
+            <lt4:operatorCode>TL</lt4:operatorCode>
+            <lt4:serviceType>train</lt4:serviceType>
+            <lt4:serviceID>d9bFpyZflsSrWq5MNjdUwg==</lt4:serviceID>
+            <lt5:origin>
+               <lt4:location>
+                  <lt4:locationName>Brighton</lt4:locationName>
+                  <lt4:crs>BTN</lt4:crs>
+               </lt4:location>
+            </lt5:origin>
+            <lt5:destination>
+               <lt4:location>
+                  <lt4:locationName>London Bridge</lt4:locationName>
+                  <lt4:crs>LBG</lt4:crs>
+               </lt4:location>
+            </lt5:destination>
+            <lt8:subsequentCallingPoints>
+               <lt8:callingPointList>
+                  <lt8:callingPoint>
+                     <lt8:locationName>London Bridge</lt8:locationName>
+                     <lt8:crs>LBG</lt8:crs>
+                     <lt8:st>20:39</lt8:st>
+                     <lt8:et>20:42</lt8:et>
+                  </lt8:callingPoint>
+               </lt8:callingPointList>
+            </lt8:subsequentCallingPoints>
+         </lt8:service>
+      </lt8:destination>
+      <lt8:service>
+         <lt4:sta>20:19</lt4:sta>
+         <lt4:eta>20:24</lt4:eta>
+         <lt4:std>20:21</lt4:std>
+         <lt4:etd>20:25</lt4:etd>
+         <lt4:platform>2</lt4:platform>
+         <lt4:operator>Thameslink</lt4:operator>
+         <lt4:operatorCode>TL</lt4:operatorCode>
+         <lt4:serviceType>train</lt4:serviceType>
+         <lt4:serviceID>d9bFpyZflsSrWq5MNjdUwg==</lt4:serviceID>
+         <lt5:origin>
+            <lt4:location>
+               <lt4:locationName>Brighton</lt4:locationName>
+               <lt4:crs>BTN</lt4:crs>
+            </lt4:location>
+         </lt5:origin>
+         <lt5:destination>
+            <lt4:location>
+               <lt4:locationName>London Bridge</lt4:locationName>
+               <lt4:crs>LBG</lt4:crs>
+            </lt4:location>
+         </lt5:destination>
+         <lt8:subsequentCallingPoints>
+            <lt8:callingPointList>
+               <lt8:callingPoint>
+                  <lt8:locationName>London Bridge</lt8:locationName>
+                  <lt8:crs>LBG</lt8:crs>
+                  <lt8:st>20:39</lt8:st>
+                  <lt8:et>20:42</lt8:et>
+               </lt8:callingPoint>
+            </lt8:callingPointList>
+         </lt8:subsequentCallingPoints>
+      </lt8:service>
+      <lt4:sta>20:19</lt4:sta>
+      <lt4:eta>20:24</lt4:eta>
+      <lt4:std>20:21</lt4:std>
+      <lt4:etd>20:25</lt4:etd>
+      <lt4:platform>2</lt4:platform>
+      <lt4:operator>Thameslink</lt4:operator>
+      <lt4:operatorCode>TL</lt4:operatorCode>
+      <lt4:serviceType>train</lt4:serviceType>
+      <lt4:serviceID>d9bFpyZflsSrWq5MNjdUwg==</lt4:serviceID>
+      <lt5:origin>
+         <lt4:location>
+            <lt4:locationName>Brighton</lt4:locationName>
+            <lt4:crs>BTN</lt4:crs>
+         </lt4:location>
+      </lt5:origin>
+      <lt4:location>
+         <lt4:locationName>Brighton</lt4:locationName>
+         <lt4:crs>BTN</lt4:crs>
+      </lt4:location>
+      <lt4:locationName>Brighton</lt4:locationName>
+      <lt4:crs>BTN</lt4:crs>
+      <lt5:destination>
+         <lt4:location>
+            <lt4:locationName>London Bridge</lt4:locationName>
+            <lt4:crs>LBG</lt4:crs>
+         </lt4:location>
+      </lt5:destination>
+      <lt4:location>
+         <lt4:locationName>London Bridge</lt4:locationName>
+         <lt4:crs>LBG</lt4:crs>
+      </lt4:location>
+      <lt4:locationName>London Bridge</lt4:locationName>
+      <lt4:crs>LBG</lt4:crs>
+      <lt8:subsequentCallingPoints>
+         <lt8:callingPointList>
+            <lt8:callingPoint>
+               <lt8:locationName>London Bridge</lt8:locationName>
+               <lt8:crs>LBG</lt8:crs>
+               <lt8:st>20:39</lt8:st>
+               <lt8:et>20:42</lt8:et>
+            </lt8:callingPoint>
+         </lt8:callingPointList>
+      </lt8:subsequentCallingPoints>
+      <lt8:callingPointList>
+         <lt8:callingPoint>
+            <lt8:locationName>London Bridge</lt8:locationName>
+            <lt8:crs>LBG</lt8:crs>
+            <lt8:st>20:39</lt8:st>
+            <lt8:et>20:42</lt8:et>
+         </lt8:callingPoint>
+      </lt8:callingPointList>
+      <lt8:callingPoint>
+         <lt8:locationName>London Bridge</lt8:locationName>
+         <lt8:crs>LBG</lt8:crs>
+         <lt8:st>20:39</lt8:st>
+         <lt8:et>20:42</lt8:et>
+      </lt8:callingPoint>
+      <lt8:locationName>London Bridge</lt8:locationName>
+      <lt8:crs>LBG</lt8:crs>
+      <lt8:st>20:39</lt8:st>
+      <lt8:et>20:42</lt8:et>
+   </soap:Body>
+</soap:Envelope>

@@ -1,7 +1,9 @@
-import unittest
-from suds.client import Client
-import nredarwin.webservice
 import os
+import unittest
+
+from suds.client import Client
+
+import nredarwin.webservice
 
 
 class TestSoapClient(object):
