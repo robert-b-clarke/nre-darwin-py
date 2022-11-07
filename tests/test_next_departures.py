@@ -1,9 +1,4 @@
-import os
 import unittest
-from pathlib import Path
-
-import dill
-from suds.client import Client
 
 import nredarwin.webservice
 from tests.test_webservice import TEST_SOAP_CLIENT
