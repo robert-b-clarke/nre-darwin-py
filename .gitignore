@@ -37,3 +37,6 @@ htmlcov
 *.swp
 .vagrant
 venv
+
+# Cached SOAP responses
+*.dill

@@ -1,37 +1,11 @@
 import unittest
-from suds.client import Client
+from tests.soap import soap_response
 import nredarwin.webservice
-import os
-
-
-class TestSoapClient(object):
-    def __init__(self):
-        self._client = Client(
-            "https://lite.realtime.nationalrail.co.uk/OpenLDBWS/wsdl.aspx",
-        )
-
-    def mock_response_from_file(self, operation_a, operation_b, filename=None):
-        base_path = os.path.dirname(__file__)
-        file_path = os.path.abspath(os.path.join(base_path, "testdata", filename))
-        fh = open(file_path, "r")
-        xml_content = fh.read()
-        fh.close()
-        xml_content = xml_content.encode("utf-8")
-        return self._client.service[operation_a][operation_b](
-            __inject={"reply": xml_content}
-        )
-
-
-TEST_SOAP_CLIENT = TestSoapClient()
 
 
 class StationBoardTest(unittest.TestCase):
     def setUp(self):
-        resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap",
-            "GetDepartureBoard",
-            filename="departure-board.xml",
-        )
+        resp = soap_response("GetDepartureBoard", "departure-board.xml")
         self.board = nredarwin.webservice.StationBoard(resp)
 
     def test_station_details(self):
@@ -80,11 +54,7 @@ http://nationalrail.co.uk/service_disruptions/88961.aspx">Latest Travel News.\
 
 class ServiceDetailsTest(unittest.TestCase):
     def setUp(self):
-        resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap",
-            "GetServiceDetails",
-            filename="service-details.xml",
-        )
+        resp = soap_response("GetServiceDetails", "service-details.xml")
         self.service_details = nredarwin.webservice.ServiceDetails(resp)
 
     def test_basic_details(self):
@@ -123,11 +93,7 @@ class ServiceDetailsTest(unittest.TestCase):
 
 class CallingPointsTest(unittest.TestCase):
     def setUp(self):
-        resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap",
-            "GetServiceDetails",
-            filename="service-details-splits-after.xml",
-        )
+        resp = soap_response("GetServiceDetails", "service-details-splits-after.xml")
         self.service_details_splits_after = nredarwin.webservice.ServiceDetails(resp)
 
     def test_basic(self):
