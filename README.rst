@@ -5,7 +5,7 @@ nre-darwin-py
 .. image:: https://circleci.com/gh/robert-b-clarke/nre-darwin-py.svg?style=svg
     :target: https://circleci.com/gh/robert-b-clarke/nre-darwin-py
 
-.. image:: https://pypip.in/v/nre-darwin-py/badge.png
+.. image:: https://img.shields.io/pypi/v/nre-darwin-py.svg
     :target: https://pypi.python.org/pypi//nre-darwin-py/
     :alt: Downloads
 
