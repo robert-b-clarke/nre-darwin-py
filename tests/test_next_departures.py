@@ -1,17 +1,13 @@
 import unittest
 
 import nredarwin.webservice
-from tests.test_webservice import TEST_SOAP_CLIENT
+from tests.soap import soap_response
 
 
 class NextDepartures(unittest.TestCase):
 
     def setUp(self):
-        resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap",
-            "GetNextDepartures",
-            filename="next-departures.xml",
-        )
+        resp = soap_response("GetNextDepartures", "next-departures.xml")
         self.next_departures = nredarwin.webservice.DepartureBoard(resp)
 
     def test_basic(self):
@@ -62,11 +58,7 @@ class NextDepartures(unittest.TestCase):
 class NextDeparturesWithDetails(unittest.TestCase):
 
     def setUp(self):
-        resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap",
-            "GetNextDeparturesWithDetails",
-            filename="next-departures-with-details.xml",
-        )
+        resp = soap_response("GetNextDeparturesWithDetails", "next-departures-with-details.xml")
         self.next_departures = nredarwin.webservice.DepartureBoardWithDetails(resp)
 
     def test_firstDepartureCallingPoints(self):

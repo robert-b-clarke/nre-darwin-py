@@ -1,3 +1,4 @@
 flake8==4.0.1
 coverage==5.0.3
+dill==0.3.6
 .

@@ -1,17 +1,13 @@
 import unittest
 
 import nredarwin.webservice
-from tests.test_webservice import TEST_SOAP_CLIENT
+from tests.soap import soap_response
 
 
 class FastestDepartures(unittest.TestCase):
 
     def setUp(self):
-        resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap",
-            "GetFastestDepartures",
-            filename="fastest-departures.xml",
-        )
+        resp = soap_response("GetFastestDepartures", "fastest-departures.xml")
         self.fastest_departures = nredarwin.webservice.DepartureBoard(resp)
 
     def test_basic(self):
@@ -62,11 +58,7 @@ class FastestDepartures(unittest.TestCase):
 class FastestDeparturesWithDetails(unittest.TestCase):
 
     def setUp(self):
-        resp = TEST_SOAP_CLIENT.mock_response_from_file(
-            "LDBServiceSoap",
-            "GetFastestDeparturesWithDetails",
-            filename="fastest-departures-with-details.xml",
-        )
+        resp = soap_response("GetFastestDeparturesWithDetails", "fastest-departures-with-details.xml")
         self.fastest_departures = nredarwin.webservice.DepartureBoardWithDetails(resp)
 
     def test_firstDepartureCallingPoints(self):
