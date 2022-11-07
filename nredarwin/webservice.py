@@ -214,9 +214,6 @@ destination_crs and origin_crs, using only destination_crs"
 
         try:
             soap_response = q()
-            print("=========")
-            print(self._soap_client.last_received())
-            print("=========")
             return board_factory(soap_response)
         except WebFault:
             raise WebServiceError
