@@ -13,14 +13,9 @@ nre-darwin-py
 Introduction
 ------------
 
-`nre-darwin-py` provides an abstraction layer for accessing National Rail Enquiries Darwin service via their LDB SOAP web service. This service provides live departure board information for all United Kingdom train stations.
+`nre-darwin-py` provides an abstraction layer for accessing the National Rail Enquiries Darwin service via their **legacy** LDB SOAP web service. This service provides live departure board information for all United Kingdom train stations.
 
-This module has the following goals:
-
-* Allow developers to avoid the complexity of SOAP and the decisions involved in choosing a Python SOAP client
-* Provide a more pythonic interface to station board and service details information
-* Make useful documentation available through pydoc or through the `help` command in the python shell
-* Facilitate the easy creation of departure board websites and webservices
+**IMPORTANT** Please note that the SOAP web service which this library uses has now been superceded by a more useable `REST JSON API <https://realtime.nationalrail.co.uk/LDBWS/docs/documentation.html>`_, thereby eliminating many of the reasons for using this library. If you are starting a new departure boards project in Python it is recommended that you use the new API directly.
 
 Getting started
 ---------------
