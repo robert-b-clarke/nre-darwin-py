@@ -50,6 +50,8 @@ class DarwinLdbSession(object):
         """
         if not wsdl:
             wsdl = os.environ["DARWIN_WEBSERVICE_WSDL"]
+        if not wsdl.startswith("https://"):
+            raise ValueError("wsdl must use https")
         if not api_key:
             api_key = os.environ["DARWIN_WEBSERVICE_API_KEY"]
         self._soap_client = Client(wsdl, transport=WellBehavedHttpTransport())
